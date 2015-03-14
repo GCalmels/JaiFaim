@@ -1,0 +1,35 @@
+######################
+# Android studio
+######################
+app/app-release.apk
+app/app.iml
+app/build/
+app/libs/
+app/proguard-rules.pro
+build/
+gradle/
+gradle.properties
+gradlew
+gradlew.bat
+Kyhaow.iml
+local.properties
+settings.gradle
+
+######################
+# Windows
+######################
+# Windows image file caches
+Thumbs.db
+# Folder config file
+Desktop.ini
+
+######################
+# OSX
+######################
+.DS_Store
+.svn
+# Thumbnails
+._*
+# Files that might appear on external disk
+.Spotlight-V100
+.Trashes
