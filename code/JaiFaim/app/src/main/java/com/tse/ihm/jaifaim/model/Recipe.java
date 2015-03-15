@@ -1,5 +1,6 @@
 package com.tse.ihm.jaifaim.model;
 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Date;
 
@@ -8,8 +9,10 @@ import java.util.Date;
  * Created by Gabriel on 14/03/15.
  */
 public class Recipe {
-    private String m_Name;
-    private HungryUser m_Author;
+    private String m_Id;
+    private String m_Title;
+    //private HungryUser m_Author;
+    private String m_Author;
     private Date m_CreationDate;
     private int m_PrepTime;
     private int m_CookingTime;
@@ -22,10 +25,20 @@ public class Recipe {
     private Difficulty m_Difficulty;
     private Type m_Type;
 
-    public Recipe(String _name, HungryUser _author, Date _creationDate, int _prepTime, int _cookingTime,
-                  Collection<Ingredient> _ingredientList, Collection<Step> _stepList,
-                  Difficulty _difficulty, Type _type) {
-        m_Name = _name;
+    public Recipe(String _id, String _title, String _author) {
+        m_Id = _id;
+        m_Title = _title;
+        m_Author = _author;
+
+        m_IngredientList = new ArrayList<Ingredient>();
+        m_StepList = new ArrayList<Step>();
+    }
+
+    public Recipe(String _id, String _title, String _author, Date _creationDate, int _prepTime,
+                  int _cookingTime, Collection<Ingredient> _ingredientList,
+                  Collection<Step> _stepList, Difficulty _difficulty, Type _type) {
+        m_Id = _id;
+        m_Title = _title;
         m_Author = _author;
         m_CreationDate = _creationDate;
         m_PrepTime = _prepTime;
@@ -36,19 +49,27 @@ public class Recipe {
         m_Type = _type;
     }
 
-    public String getName() {
-        return m_Name;
+    public String getId() {
+        return m_Id;
     }
 
-    public void setName(String _name) {
-        m_Name = _name;
+    public void setId(String _id) {
+        this.m_Id = _id;
     }
 
-    public HungryUser getAuthor() {
+    public String getTitle() {
+        return m_Title;
+    }
+
+    public void setTitle(String _title) {
+        m_Title = _title;
+    }
+
+    public String getAuthor() {
         return m_Author;
     }
 
-    public void setAuthor(HungryUser _author) {
+    public void setAuthor(String _author) {
         m_Author = _author;
     }
 
@@ -106,5 +127,14 @@ public class Recipe {
 
     public void setType(Type _type) {
         this.m_Type = _type;
+    }
+
+    @Override
+    public String toString() {
+        return "Recipe{" +
+                "Id='" + m_Id + '\'' +
+                ", Title='" + m_Title + '\'' +
+                ", Author='" + m_Author + '\'' +
+                '}';
     }
 }

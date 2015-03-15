@@ -13,7 +13,9 @@ import android.widget.Toast;
 
 import com.tse.ihm.jaifaim.R;
 import com.tse.ihm.jaifaim.asynctask.LoginTask;
+import com.tse.ihm.jaifaim.controller.GistController;
 import com.tse.ihm.jaifaim.controller.HungryUserController;
+import com.tse.ihm.jaifaim.model.Recipe;
 
 import org.eclipse.egit.github.core.Gist;
 import org.eclipse.egit.github.core.GistFile;
@@ -22,10 +24,13 @@ import org.eclipse.egit.github.core.client.GitHubClient;
 import org.eclipse.egit.github.core.service.GistService;
 
 import java.io.IOException;
+import java.util.Collection;
 import java.util.Map;
 
 
 public class MainActivity extends ActionBarActivity {
+
+    private static final String TAG = MainActivity.class.getName();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,11 +40,12 @@ public class MainActivity extends ActionBarActivity {
         StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
         StrictMode.setThreadPolicy(policy);
 
-        // Connexion
-        //LoginTask loginTask = new LoginTask("driftse@gmail.com", "test");
-        //loginTask.execute();
-        Intent i = new Intent(this, LoginActivity.class);
-        startActivity(i);
+        // Test de connexion
+        //Intent i = new Intent(this, LoginActivity.class);
+        //startActivity(i);
+
+        Collection<Recipe> list = GistController.getAllRecipe();
+        Log.d(TAG, "" + list.toString());
     }
 
 

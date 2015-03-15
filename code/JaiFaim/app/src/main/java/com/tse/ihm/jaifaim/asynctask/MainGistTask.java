@@ -1,25 +1,21 @@
 package com.tse.ihm.jaifaim.asynctask;
 
 import android.os.AsyncTask;
-import android.util.Log;
 
+import com.tse.ihm.jaifaim.controller.GistController;
 import com.tse.ihm.jaifaim.controller.HungryUserController;
+import com.tse.ihm.jaifaim.model.Recipe;
+
+import java.util.Collection;
 
 import de.greenrobot.event.EventBus;
 
 /**
- * Created by Gabriel on 14/03/15.
+ * Created by Gabriel on 15/03/15.
  */
-public class LoginTask extends AsyncTask<Void, Void, Void>{
+public class MainGistTask extends AsyncTask<Void, Void, Void> {
 
-    private String m_Username;
-    private String m_Passw0rd;
-    private boolean m_isSuccessfull;
-
-    public LoginTask(String _username, String _passw0rd) {
-        m_Username = _username;
-        m_Passw0rd = _passw0rd;
-    }
+    private Collection<Recipe> m_RecipeList;
 
     @Override
     protected void onPreExecute() {
@@ -29,14 +25,14 @@ public class LoginTask extends AsyncTask<Void, Void, Void>{
     @Override
     protected Void doInBackground(Void... arg0) {
 
-        m_isSuccessfull = HungryUserController.login(m_Username, m_Passw0rd);
+        m_RecipeList = GistController.getAllRecipe();
         return null;
     }
 
     @Override
     protected void onPostExecute(Void result) {
         // Envoi de la réussite ou non à l'activité
-        EventBus.getDefault().post(m_isSuccessfull);
+        EventBus.getDefault().post(m_RecipeList);
     }
 
 }

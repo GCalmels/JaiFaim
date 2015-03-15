@@ -20,7 +20,7 @@ public class HungryUserController {
         GitHubClient client = new GitHubClient();
         client.setCredentials(_username, _passw0rd);
 
-        User user = null;
+        User user;
         try {
             user = new UserService(client).getUser();
             return true;
