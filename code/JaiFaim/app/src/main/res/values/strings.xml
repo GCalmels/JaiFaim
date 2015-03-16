@@ -11,4 +11,5 @@
     <string name="login_activity_button">Se connecter</string>
     <string name="login_activity_hint_password">Mot de passe</string>
     <string name="login_activity_hint_username">Adresse mail</string>
+    <string name="title_activity_view_recipe">ViewRecipeActivity</string>
 </resources>

@@ -16,6 +16,7 @@ public class Recipe {
     private Date m_CreationDate;
     private int m_PrepTime;
     private int m_CookingTime;
+    private String m_ImageUrl;
 
     // Collections
     private Collection<Ingredient> m_IngredientList;
@@ -35,7 +36,7 @@ public class Recipe {
     }
 
     public Recipe(String _id, String _title, String _author, Date _creationDate, int _prepTime,
-                  int _cookingTime, Collection<Ingredient> _ingredientList,
+                  int _cookingTime, String _imageUrl, Collection<Ingredient> _ingredientList,
                   Collection<Step> _stepList, Difficulty _difficulty, Type _type) {
         m_Id = _id;
         m_Title = _title;
@@ -43,6 +44,7 @@ public class Recipe {
         m_CreationDate = _creationDate;
         m_PrepTime = _prepTime;
         m_CookingTime = _cookingTime;
+        m_ImageUrl = _imageUrl;
         m_IngredientList = _ingredientList;
         m_StepList = _stepList;
         m_Difficulty = _difficulty;
@@ -95,6 +97,16 @@ public class Recipe {
 
     public void setCookingTime(int _cookingTime) {
         m_CookingTime = _cookingTime;
+    }
+
+    public String getImageUrl()
+    {
+        return m_ImageUrl;
+    }
+
+    public void setImageUrl(String _imageUrl)
+    {
+        this.m_ImageUrl = m_ImageUrl;
     }
 
     public Collection<Ingredient> getIngredientList() {
