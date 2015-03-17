@@ -1,7 +1,8 @@
 package com.tse.ihm.jaifaim.model;
 
+import com.google.gson.annotations.SerializedName;
+
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.Date;
 
 /**
@@ -9,21 +10,40 @@ import java.util.Date;
  * Created by Gabriel on 14/03/15.
  */
 public class Recipe {
+
+    @SerializedName("id")
     private String m_Id;
+
+    @SerializedName("title")
     private String m_Title;
-    //private HungryUser m_Author;
+
+    @SerializedName("author")
     private String m_Author;
+
+    @SerializedName("creationDate")
     private Date m_CreationDate;
+
+    @SerializedName("prepTime")
     private int m_PrepTime;
+
+    @SerializedName("cookingTime")
     private int m_CookingTime;
+
+    @SerializedName("imageUrl")
     private String m_ImageUrl;
 
     // Collections
-    private Collection<Ingredient> m_IngredientList;
-    private Collection<Step> m_StepList;
+    @SerializedName("ingredientList")
+    private ArrayList<Ingredient> m_IngredientList;
+
+    @SerializedName("stepList")
+    private ArrayList<Step> m_StepList;
 
     // Enums
+    @SerializedName("difficulty")
     private Difficulty m_Difficulty;
+
+    @SerializedName("type")
     private Type m_Type;
 
     public Recipe(String _id, String _title, String _author) {
@@ -36,8 +56,8 @@ public class Recipe {
     }
 
     public Recipe(String _id, String _title, String _author, Date _creationDate, int _prepTime,
-                  int _cookingTime, String _imageUrl, Collection<Ingredient> _ingredientList,
-                  Collection<Step> _stepList, Difficulty _difficulty, Type _type) {
+                  int _cookingTime, String _imageUrl, ArrayList<Ingredient> _ingredientList,
+                  ArrayList<Step> _stepList, Difficulty _difficulty, Type _type) {
         m_Id = _id;
         m_Title = _title;
         m_Author = _author;
@@ -109,19 +129,19 @@ public class Recipe {
         this.m_ImageUrl = m_ImageUrl;
     }
 
-    public Collection<Ingredient> getIngredientList() {
+    public ArrayList<Ingredient> getIngredientList() {
         return m_IngredientList;
     }
 
-    public void setIngredientList(Collection<Ingredient> _ingredientList) {
+    public void setIngredientList(ArrayList<Ingredient> _ingredientList) {
         m_IngredientList = _ingredientList;
     }
 
-    public Collection<Step> getStepList() {
+    public ArrayList<Step> getStepList() {
         return m_StepList;
     }
 
-    public void setStepList(Collection<Step> _stepList) {
+    public void setStepList(ArrayList<Step> _stepList) {
         m_StepList = _stepList;
     }
 

@@ -3,10 +3,9 @@ package com.tse.ihm.jaifaim.asynctask;
 import android.os.AsyncTask;
 
 import com.tse.ihm.jaifaim.controller.GistController;
-import com.tse.ihm.jaifaim.controller.HungryUserController;
 import com.tse.ihm.jaifaim.model.Recipe;
 
-import java.util.Collection;
+import java.util.ArrayList;
 
 import de.greenrobot.event.EventBus;
 
@@ -15,7 +14,7 @@ import de.greenrobot.event.EventBus;
  */
 public class MainGistTask extends AsyncTask<Void, Void, Void> {
 
-    private Collection<Recipe> m_RecipeList;
+    private ArrayList<Recipe> m_RecipeList;
 
     @Override
     protected void onPreExecute() {

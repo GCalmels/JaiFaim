@@ -3,6 +3,7 @@
     package="com.tse.ihm.jaifaim" >
 
     <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
 
     <application
         android:allowBackup="true"
@@ -12,11 +13,11 @@
         <activity
             android:name=".ui.MainActivity"
             android:label="@string/app_name" >
-            <intent-filter>
+            <!--<intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
+            </intent-filter>-->
         </activity>
         <activity
             android:name=".ui.LoginActivity"
@@ -31,6 +32,11 @@
         <activity
             android:name=".ui.ViewRecipeActivity"
             android:label="@string/title_activity_view_recipe" >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
         </activity>
     </application>
 

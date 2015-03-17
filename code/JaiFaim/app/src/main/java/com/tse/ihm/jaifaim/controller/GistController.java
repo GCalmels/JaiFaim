@@ -1,8 +1,5 @@
 package com.tse.ihm.jaifaim.controller;
 
-import android.util.JsonReader;
-import android.util.Log;
-
 import com.tse.ihm.jaifaim.model.Recipe;
 
 import org.eclipse.egit.github.core.Gist;
@@ -13,9 +10,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.IOException;
-import java.io.InputStream;
 import java.util.ArrayList;
-import java.util.Collection;
 
 /**
  * Created by Gabriel on 14/03/15.
@@ -31,9 +26,9 @@ public class GistController {
     private static final String TAG_AUTHOR = "author";
 
     // Récupération partielle de toutes les recettes
-    public static Collection<Recipe> getAllRecipe() {
+    public static ArrayList<Recipe> getAllRecipe() {
         GistService service = new GistService();
-        Collection<Recipe> recipeList = new ArrayList<>();
+        ArrayList<Recipe> recipeList = new ArrayList<>();
         try {
             Gist gist = service.getGist(ID_MAIN_GIST);
 
