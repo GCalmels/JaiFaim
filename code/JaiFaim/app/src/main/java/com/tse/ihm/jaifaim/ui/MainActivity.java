@@ -1,42 +1,33 @@
 package com.tse.ihm.jaifaim.ui;
 
 import android.content.Intent;
-import android.os.AsyncTask;
+import android.os.Bundle;
 import android.os.StrictMode;
 import android.support.v7.app.ActionBarActivity;
-import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.widget.TextView;
-import android.widget.Toast;
+import android.widget.ListView;
 
 import com.tse.ihm.jaifaim.R;
-import com.tse.ihm.jaifaim.asynctask.LoginTask;
+import com.tse.ihm.jaifaim.adapter.RecipeAdapter;
 import com.tse.ihm.jaifaim.controller.GistController;
-import com.tse.ihm.jaifaim.controller.HungryUserController;
 import com.tse.ihm.jaifaim.model.Recipe;
 
-import org.eclipse.egit.github.core.Gist;
-import org.eclipse.egit.github.core.GistFile;
-import org.eclipse.egit.github.core.User;
-import org.eclipse.egit.github.core.client.GitHubClient;
-import org.eclipse.egit.github.core.service.GistService;
-
-import java.io.IOException;
-import java.util.Collection;
-import java.util.Map;
+import java.util.ArrayList;
 
 
 public class MainActivity extends ActionBarActivity {
 
     private static final String TAG = MainActivity.class.getName();
+    private ArrayList<Recipe> m_RecipeList;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        // A la place des AsynTask... Pas très beau‚-
         StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
         StrictMode.setThreadPolicy(policy);
 
@@ -44,8 +35,13 @@ public class MainActivity extends ActionBarActivity {
         //Intent i = new Intent(this, LoginActivity.class);
         //startActivity(i);
 
-        Collection<Recipe> list = GistController.getAllRecipe();
-        Log.d(TAG, "" + list.toString());
+        m_RecipeList = GistController.getAllRecipe();
+        Log.d(TAG, "" + m_RecipeList);
+        // Create the adapter to convert the array to views
+        RecipeAdapter adapter = new RecipeAdapter(this, m_RecipeList);
+        // Attach the adapter to a ListView
+        ListView listView = (ListView) findViewById(R.id.recipe_list);
+        listView.setAdapter(adapter);
     }
 
 
@@ -58,17 +54,13 @@ public class MainActivity extends ActionBarActivity {
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
 
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
+        Class c = com.tse.ihm.jaifaim.Menu.itemSelected(item);
+        if (c != null) {
+            Intent i = new Intent(this, c);
+            startActivity(i);
         }
-
-        return super.onOptionsItemSelected(item);
+        return true;
     }
 
 }

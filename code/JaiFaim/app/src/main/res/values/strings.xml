@@ -2,8 +2,11 @@
     <string name="app_name">JaiFaim</string>
     <string name="main_title">J\'ai Faim</string>
 
-    <string name="hello_world">Hello world!</string>
-    <string name="action_settings">Settings</string>
+    <!-- Action Bar -->
+    <string name="action_settings">Reglages</string>
+    <string name="action_login">Se connecter</string>
+    <string name="action_new_recipe">Nouvelle recette</string>
+    <string name="action_login_cancel">Annuler</string>
 
     <!-- Login Activity -->
     <string name="title_activity_login">Login</string>
@@ -12,4 +15,20 @@
     <string name="login_activity_hint_password">Mot de passe</string>
     <string name="login_activity_hint_username">Adresse mail</string>
     <string name="title_activity_view_recipe">ViewRecipeActivity</string>
+    <string name="title_activity_new_recipe">NewRecipeActivity</string>
+
+    <!-- New Recipe Activity -->
+    <string name="new_recipe_title">Titre de la recette</string>
+    <string name="new_recipe_prep_time">Temps de préparation</string>
+    <string name="new_recipe_cooking_time">Temps de cuisson</string>
+    <string name="new_recipe_difficulty">Difficulté</string>
+    <string name="new_recipe_difficulty_easy">Facile</string>
+    <string name="new_recipe_difficulty_medium">Moyen</string>
+    <string name="new_recipe_difficulty_hard">Difficile</string>
+    <string name="new_recipe_type">Type de plat</string>
+    <string name="new_recipe_type_starter">Entrée</string>
+    <string name="new_recipe_type_dish">Plat</string>
+    <string name="new_recipe_type_dessert">Dessert</string>
+
+    <string name="hello_world">Hello world!</string>
 </resources>

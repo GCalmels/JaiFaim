@@ -1,9 +1,10 @@
 package com.tse.ihm.jaifaim.ui;
 
 import android.os.Bundle;
-import android.os.PersistableBundle;
 import android.support.v7.app.ActionBarActivity;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
 
@@ -29,8 +30,23 @@ public class LoginActivity extends ActionBarActivity {
 
         // Event
         EventBus.getDefault().register(this);
+    }
 
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        // Inflate the menu; this adds items to the action bar if it is present.
+        getMenuInflater().inflate(R.menu.menu_login, menu);
+        return true;
+    }
 
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+
+        Class c = com.tse.ihm.jaifaim.Menu.itemSelected(item);
+        if (c == MainActivity.class) {
+            finish();
+        }
+        return true;
     }
 
     public void login(View v)
