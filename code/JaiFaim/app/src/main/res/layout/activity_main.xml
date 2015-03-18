@@ -1,3 +1,5 @@
+
+
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
     android:layout_height="match_parent" android:paddingLeft="@dimen/activity_horizontal_margin"
@@ -20,11 +22,26 @@
         android:layout_below="@id/activity_main_title">
         </SearchView>
 
+    <android.support.v4.widget.SwipeRefreshLayout
+        android:id="@+id/swipe_container"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@id/activity_main_search">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
     <ListView
         android:id="@+id/recipe_list"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginTop="20dp"
-        android:layout_below="@id/activity_main_search"></ListView>
+        android:layout_marginTop="20dp"></ListView>
+
+    </ScrollView>
+
+    </android.support.v4.widget.SwipeRefreshLayout>
 
 </RelativeLayout>
+
+

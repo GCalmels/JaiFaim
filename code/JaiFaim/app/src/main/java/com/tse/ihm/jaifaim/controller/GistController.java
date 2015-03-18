@@ -34,13 +34,10 @@ public class GistController {
     public static final String TAG = GistController.class.getName();
 
     // ID du gist référence pour toutes les recettes
-    private final static String ID_MAIN_GIST = "24e9ce70e2785931f5ae";
+    private final static String ID_MAIN_GIST = "58d7dde389d53b4cef9c";
 
     // JSON Node names
     private static final String TAG_LIST = "list";
-    private static final String TAG_ID = "id";
-    private static final String TAG_TITLE = "title";
-    private static final String TAG_AUTHOR = "author";
 
     /**
      * Récupère toutes les recettes dans une asynctask

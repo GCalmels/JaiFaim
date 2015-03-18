@@ -79,6 +79,8 @@ public class RecipeAdapter extends BaseAdapter
                     .placeholder(R.drawable.no_image)
                     .error(R.drawable.error_image)
                     .load(recipe.getImageUrl());
+
+
         }
 
         Log.d(TAG, "[getItem] url of image " + recipe.getImageUrl());

@@ -2,10 +2,15 @@ package com.tse.ihm.jaifaim.ui;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v7.app.ActionBarActivity;
+import android.support.v4.widget.SwipeRefreshLayout;
+import android.support.v4.widget.SwipeRefreshLayout.OnRefreshListener;
 import android.util.Log;
+import android.util.TypedValue;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ListView;
 
 import com.tse.ihm.jaifaim.R;
@@ -16,28 +21,68 @@ import com.tse.ihm.jaifaim.model.Recipe;
 import java.util.ArrayList;
 
 import de.greenrobot.event.EventBus;
+import roboguice.activity.RoboActionBarActivity;
+import roboguice.inject.InjectView;
 
 
-public class MainActivity extends ActionBarActivity {
+public class MainActivity extends RoboActionBarActivity implements OnRefreshListener
+{
 
     private static final String TAG = MainActivity.class.getName();
+
+    @InjectView(R.id.swipe_container)      private SwipeRefreshLayout m_SwipeContainer;
+    @InjectView(R.id.recipe_list)          private ListView m_ListView;
+
     private ArrayList<Recipe> m_RecipeList;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    protected void onCreate(Bundle savedInstanceState)
+    {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
         EventBus.getDefault().register(this);
 
+        m_SwipeContainer.setOnRefreshListener(this);
+        m_SwipeContainer.setColorScheme(android.R.color.holo_blue_bright,
+                android.R.color.holo_green_light,
+                android.R.color.holo_orange_light,
+                android.R.color.holo_red_light);
+
         // TODO: Test de connexion
         //Intent i = new Intent(this, LoginActivity.class);
         //startActivity(i);
 
+
+        m_ListView.setOnItemClickListener(new OnItemClickListener()
+        {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int pos, long l)
+            {
+                Recipe recipe = (Recipe)adapterView.getItemAtPosition(pos);
+                EventBus.getDefault().postSticky(recipe);
+                Intent intent = new Intent(MainActivity.this, ViewRecipeActivity.class);
+                MainActivity.this.startActivity(intent);
+            }
+        });
+
+        // Workaround d'un bug dans le swipelayout
+        // see : https://code.google.com/p/android/issues/detail?id=77712
+        TypedValue typed_value = new TypedValue();
+        getTheme().resolveAttribute(android.support.v7.appcompat.R.attr.actionBarSize, typed_value, true);
+        m_SwipeContainer.setProgressViewOffset(false, 0, getResources().getDimensionPixelSize(typed_value.resourceId));
+
+        showProgress();
         GistController controller = new GistController();
         controller.getAllRecipesInBackground();
     }
 
+    @Override
+    public void onRefresh()
+    {
+        GistController controller = new GistController();
+        controller.getAllRecipesInBackground();
+    }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -59,6 +104,7 @@ public class MainActivity extends ActionBarActivity {
 
     public void onEvent(ArrayList<Recipe> _recipeList)
     {
+        hideProgress();
         m_RecipeList = _recipeList;
 
         Log.d(TAG, "[onEvent] recette 0 : " + _recipeList.get(0));
@@ -67,6 +113,16 @@ public class MainActivity extends ActionBarActivity {
         // Attach the adapter to a ListView
         ListView listView = (ListView) findViewById(R.id.recipe_list);
         listView.setAdapter(adapter);
+    }
+
+    public void showProgress()
+    {
+        m_SwipeContainer.setRefreshing(true);
+    }
+
+    public void hideProgress()
+    {
+        m_SwipeContainer.setRefreshing(false);
     }
 
 }

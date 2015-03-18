@@ -44,4 +44,9 @@ dependencies {
     // Downloading and caching image over the network
     // https://github.com/koush/ion#get-ion
     compile 'com.koushikdutta.ion:ion:2.+'
+
+    // Dependancy Injection
+    // https://github.com/roboguice/roboguice/wiki
+    compile 'org.roboguice:roboguice:3.+'
+    provided 'org.roboguice:roboblender:3.+'
 }
