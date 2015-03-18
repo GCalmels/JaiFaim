@@ -8,6 +8,11 @@
     android:orientation="vertical">
 
     <!-- Ajouter pour l'image -->
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="100dp"
+        android:scaleType="centerCrop"
+        android:src="@drawable/poulet" />
 
     <EditText
         android:id="@+id/new_recipe_title"
@@ -90,5 +95,11 @@
                 android:text="@string/new_recipe_type_dessert"/>
         </LinearLayout>
     </RadioGroup>
+
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Créer la recette"
+        android:onClick="createRecipe"/>
 
 </LinearLayout>
