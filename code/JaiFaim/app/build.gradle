@@ -40,4 +40,8 @@ dependencies {
     // JSON to object and object to JSON
     // https://code.google.com/p/google-gson/
     compile 'com.google.code.gson:gson:2.2.4'
+
+    // Downloading and caching image over the network
+    // https://github.com/koush/ion#get-ion
+    compile 'com.koushikdutta.ion:ion:2.+'
 }

@@ -128,7 +128,7 @@ public class Recipe {
 
     public void setImageUrl(String _imageUrl)
     {
-        this.m_ImageUrl = m_ImageUrl;
+        this.m_ImageUrl = _imageUrl;
     }
 
     public ArrayList<Ingredient> getIngredientList() {

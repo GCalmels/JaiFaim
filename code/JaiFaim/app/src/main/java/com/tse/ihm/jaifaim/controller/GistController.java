@@ -119,6 +119,8 @@ public class GistController {
         String prepTime = object.getString(JSONnodes.recipePrepTime.toString());
         String cookingTime = object.getString(JSONnodes.recipeCookingTime.toString());
         String imageUrl = object.getString(JSONnodes.recipeImageUrl.toString());
+        Log.d(TAG, "[populateRecipe] Image URL : " + imageUrl);
+
 
         // Récupération des ingrédoents
         ArrayList<Ingredient> ingredientList = new ArrayList<>();

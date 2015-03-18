@@ -1,12 +1,15 @@
 package com.tse.ihm.jaifaim.adapter;
 
 import android.content.Context;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.koushikdutta.ion.Ion;
 import com.tse.ihm.jaifaim.R;
 import com.tse.ihm.jaifaim.model.Recipe;
 
@@ -17,6 +20,8 @@ import java.util.ArrayList;
  */
 public class RecipeAdapter extends BaseAdapter
 {
+    private static final String TAG = Recipe.class.getName();
+
     private Context m_Context;
     private ArrayList<Recipe> m_RecipeList;
 
@@ -56,6 +61,7 @@ public class RecipeAdapter extends BaseAdapter
             viewHolder = new ViewHolder();
             viewHolder.recipeTitle = (TextView) convertView.findViewById(R.id.recipe_list_item_title);
             viewHolder.recipeAuthor = (TextView) convertView.findViewById(R.id.recipe_list_item_author);
+            viewHolder.recipeImage = (ImageView) convertView.findViewById(R.id.recipe_list_item_image);
 
             // store the holder with the view.
             convertView.setTag(viewHolder);
@@ -68,8 +74,15 @@ public class RecipeAdapter extends BaseAdapter
 
         if(recipe != null) {
             viewHolder.recipeTitle.setText(recipe.getTitle());
-            viewHolder.recipeAuthor.setTag(recipe.getAuthor());
+            viewHolder.recipeAuthor.setText(recipe.getAuthor());
+            Ion.with(viewHolder.recipeImage)
+                    .placeholder(R.drawable.no_image)
+                    .error(R.drawable.error_image)
+                    .load(recipe.getImageUrl());
         }
+
+        Log.d(TAG, "[getItem] url of image " + recipe.getImageUrl());
+
         // Return the completed view to render on screen
         return convertView;
     }
@@ -79,6 +92,7 @@ public class RecipeAdapter extends BaseAdapter
 
     private static class ViewHolder
     {
+        public ImageView recipeImage;
         public TextView recipeTitle;
         public TextView recipeAuthor;
     }
