@@ -5,6 +5,7 @@ package com.tse.ihm.jaifaim.model;
  * Created by Gabriel on 14/03/15.
  */
 public class Ingredient {
+    //TODO: Ajouter les serialize name
     String m_Name;
     String m_Quantity;
 

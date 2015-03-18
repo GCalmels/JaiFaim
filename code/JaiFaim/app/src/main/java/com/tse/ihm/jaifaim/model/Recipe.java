@@ -24,10 +24,10 @@ public class Recipe {
     private Date m_CreationDate;
 
     @SerializedName("prepTime")
-    private int m_PrepTime;
+    private String m_PrepTime;
 
     @SerializedName("cookingTime")
-    private int m_CookingTime;
+    private String m_CookingTime;
 
     @SerializedName("imageUrl")
     private String m_ImageUrl;
@@ -46,6 +46,8 @@ public class Recipe {
     @SerializedName("type")
     private Type m_Type;
 
+    public Recipe() {}
+
     public Recipe(String _id, String _title, String _author) {
         m_Id = _id;
         m_Title = _title;
@@ -55,8 +57,8 @@ public class Recipe {
         m_StepList = new ArrayList<Step>();
     }
 
-    public Recipe(String _id, String _title, String _author, Date _creationDate, int _prepTime,
-                  int _cookingTime, String _imageUrl, ArrayList<Ingredient> _ingredientList,
+    public Recipe(String _id, String _title, String _author, Date _creationDate, String _prepTime,
+                  String _cookingTime, String _imageUrl, ArrayList<Ingredient> _ingredientList,
                   ArrayList<Step> _stepList, Difficulty _difficulty, Type _type) {
         m_Id = _id;
         m_Title = _title;
@@ -103,19 +105,19 @@ public class Recipe {
         m_CreationDate = _creationDate;
     }
 
-    public int getPrepTime() {
+    public String getPrepTime() {
         return m_PrepTime;
     }
 
-    public void setPrepTime(int _prepTime) {
+    public void setPrepTime(String _prepTime) {
         m_PrepTime = _prepTime;
     }
 
-    public int getCookingTime() {
+    public String getCookingTime() {
         return m_CookingTime;
     }
 
-    public void setCookingTime(int _cookingTime) {
+    public void setCookingTime(String _cookingTime) {
         m_CookingTime = _cookingTime;
     }
 

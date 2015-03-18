@@ -13,9 +13,9 @@
         />
 
     <LinearLayout
-        android:orientation="vertical"
-        android:layout_width="fill_parent"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:orientation="vertical"
         android:layout_gravity="center_vertical"
         android:paddingLeft="10px"
         android:layout_weight="1"
@@ -24,13 +24,14 @@
         <TextView android:id="@+id/recipe_list_item_title"
             android:layout_width="fill_parent"
             android:layout_height="fill_parent"
-            android:textSize="16px"
+            android:textSize="16sp"
             android:textStyle="bold"
             />
 
         <TextView android:id="@+id/recipe_list_item_author"
-            android:layout_width="fill_parent"
-            android:layout_height="fill_parent"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:textSize="14sp"
             />
 
     </LinearLayout>

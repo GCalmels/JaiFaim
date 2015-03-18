@@ -6,17 +6,11 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 
-import com.google.gson.Gson;
 import com.tse.ihm.jaifaim.R;
-import com.tse.ihm.jaifaim.asynctask.MainGistTask;
-import com.tse.ihm.jaifaim.model.Difficulty;
-import com.tse.ihm.jaifaim.model.Ingredient;
+import com.tse.ihm.jaifaim.controller.GistController;
 import com.tse.ihm.jaifaim.model.Recipe;
-import com.tse.ihm.jaifaim.model.Step;
-import com.tse.ihm.jaifaim.model.Type;
 
 import java.util.ArrayList;
-import java.util.Date;
 
 import de.greenrobot.event.EventBus;
 
@@ -33,14 +27,10 @@ public class ViewRecipeActivity extends ActionBarActivity
         // Event
         EventBus.getDefault().register(this);
 
-        MainGistTask gistTask = new MainGistTask();
 
 
 
-        //gistTask.execute();
-
-
-        Recipe recipe = new Recipe("zearzeafsdfqsdf",
+        /*Recipe recipe = new Recipe("zearzeafsdfqsdf",
                 "Pates Carbonara",
                 "Greg",
                 new Date(),
@@ -53,9 +43,10 @@ public class ViewRecipeActivity extends ActionBarActivity
                 Type.DISH);
 
         Gson gson = new Gson();
-        Log.d(TAG, "[onCreate] recette bidon : " + gson.toJson(recipe));
+        Log.d(TAG, "[onCreate] recette bidon : " + gson.toJson(recipe));*/
 
-
+        GistController controller = new GistController();
+        controller.getAllRecipesInBackground();
     }
 
 

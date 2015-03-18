@@ -2,7 +2,6 @@ package com.tse.ihm.jaifaim.ui;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.os.StrictMode;
 import android.support.v7.app.ActionBarActivity;
 import android.util.Log;
 import android.view.Menu;
@@ -16,6 +15,8 @@ import com.tse.ihm.jaifaim.model.Recipe;
 
 import java.util.ArrayList;
 
+import de.greenrobot.event.EventBus;
+
 
 public class MainActivity extends ActionBarActivity {
 
@@ -27,21 +28,14 @@ public class MainActivity extends ActionBarActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        // A la place des AsynTask... Pas très beau‚-
-        StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
-        StrictMode.setThreadPolicy(policy);
+        EventBus.getDefault().register(this);
 
-        // Test de connexion
+        // TODO: Test de connexion
         //Intent i = new Intent(this, LoginActivity.class);
         //startActivity(i);
 
-        m_RecipeList = GistController.getAllRecipe();
-        Log.d(TAG, "" + m_RecipeList);
-        // Create the adapter to convert the array to views
-        RecipeAdapter adapter = new RecipeAdapter(this, m_RecipeList);
-        // Attach the adapter to a ListView
-        ListView listView = (ListView) findViewById(R.id.recipe_list);
-        listView.setAdapter(adapter);
+        GistController controller = new GistController();
+        controller.getAllRecipesInBackground();
     }
 
 
@@ -61,6 +55,18 @@ public class MainActivity extends ActionBarActivity {
             startActivity(i);
         }
         return true;
+    }
+
+    public void onEvent(ArrayList<Recipe> _recipeList)
+    {
+        m_RecipeList = _recipeList;
+
+        Log.d(TAG, "[onEvent] recette 0 : " + _recipeList.get(0));
+        // Create the adapter to convert the array to views
+        RecipeAdapter adapter = new RecipeAdapter(this, m_RecipeList);
+        // Attach the adapter to a ListView
+        ListView listView = (ListView) findViewById(R.id.recipe_list);
+        listView.setAdapter(adapter);
     }
 
 }
