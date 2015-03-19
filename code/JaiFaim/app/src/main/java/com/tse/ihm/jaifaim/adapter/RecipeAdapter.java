@@ -6,6 +6,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.Filter;
+import android.widget.Filterable;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -18,29 +20,34 @@ import java.util.ArrayList;
 /**
  * Created by Gabriel on 18/03/15.
  */
-public class RecipeAdapter extends BaseAdapter
+public class RecipeAdapter extends BaseAdapter implements Filterable
 {
     private static final String TAG = Recipe.class.getName();
 
     private Context m_Context;
+
     private ArrayList<Recipe> m_RecipeList;
+    private ArrayList<Recipe> m_FilteredRelicipeList;
+
+    private RecipeFilter m_RecipeFilter;
 
     public RecipeAdapter(Context context, ArrayList<Recipe> recipes) {
         super();
         m_Context = context;
         m_RecipeList = recipes;
+        m_FilteredRelicipeList = recipes;
     }
 
     @Override
     public int getCount()
     {
-        return m_RecipeList.size();
+        return m_FilteredRelicipeList.size();
     }
 
     @Override
     public Recipe getItem(int i)
     {
-        return m_RecipeList.get(i);
+        return m_FilteredRelicipeList.get(i);
     }
 
     @Override
@@ -89,7 +96,14 @@ public class RecipeAdapter extends BaseAdapter
         return convertView;
     }
 
+    @Override
+    public Filter getFilter() {
+        if (m_RecipeFilter == null) {
+            m_RecipeFilter = new RecipeFilter();
+        }
 
+        return m_RecipeFilter;
+    }
 
 
     private static class ViewHolder
@@ -98,4 +112,48 @@ public class RecipeAdapter extends BaseAdapter
         public TextView recipeTitle;
         public TextView recipeAuthor;
     }
+
+    /**
+     * Custom filter for recipe list
+     * Filter content in recipe list according to the search text
+     */
+    private class RecipeFilter extends Filter {
+
+        @Override
+        protected FilterResults performFiltering(CharSequence constraint) {
+            FilterResults filterResults = new FilterResults();
+            if (constraint!=null && constraint.length()>0) {
+                ArrayList<Recipe> tempList = new ArrayList<Recipe>();
+
+                // search content in friend list
+                for (Recipe recipe : m_RecipeList) {
+                    if (recipe.getTitle().toLowerCase().contains(constraint.toString().toLowerCase())
+                            || recipe.getAuthor().toLowerCase().contains(constraint.toString().toLowerCase())) {
+                        tempList.add(recipe);
+                    }
+                }
+
+                filterResults.count = tempList.size();
+                filterResults.values = tempList;
+            } else {
+                filterResults.count = m_RecipeList.size();
+                filterResults.values = m_RecipeList;
+            }
+
+            return filterResults;
+        }
+
+        /**
+         * Notify about filtered list to ui
+         * @param constraint text
+         * @param results filtered result
+         */
+        @SuppressWarnings("unchecked")
+        @Override
+        protected void publishResults(CharSequence constraint, FilterResults results) {
+            m_FilteredRelicipeList = (ArrayList<Recipe>) results.values;
+            notifyDataSetChanged();
+        }
+    }
+
 }
