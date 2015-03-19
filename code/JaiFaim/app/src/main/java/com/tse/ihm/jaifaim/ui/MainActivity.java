@@ -12,6 +12,7 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ListView;
+import android.widget.SearchView;
 
 import com.tse.ihm.jaifaim.R;
 import com.tse.ihm.jaifaim.adapter.RecipeAdapter;
@@ -35,6 +36,7 @@ public class MainActivity extends RoboActionBarActivity implements OnRefreshList
 
     private GistController m_GistController;
     private MainGist m_MainGist;
+    private RecipeAdapter m_RecipeAdapter;
 
     public MainActivity()
     {
@@ -48,6 +50,24 @@ public class MainActivity extends RoboActionBarActivity implements OnRefreshList
         setContentView(R.layout.activity_main);
 
         EventBus.getDefault().register(this);
+
+        // Fonction de recherche
+        SearchView search = (SearchView) findViewById(R.id.activity_main_search);
+        search.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+                return false;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String newText) {
+                if (m_RecipeAdapter != null)
+                {
+                    m_RecipeAdapter.getFilter().filter(newText);
+                }
+                return false;
+            }
+        });
 
         m_SwipeContainer.setOnRefreshListener(this);
         m_SwipeContainer.setColorScheme(android.R.color.holo_blue_bright,
@@ -139,10 +159,10 @@ public class MainActivity extends RoboActionBarActivity implements OnRefreshList
     public void refreshListView()
     {
         // Create the adapter to convert the array to views
-        RecipeAdapter adapter = new RecipeAdapter(this, m_MainGist.getRecipeList());
+        m_RecipeAdapter = new RecipeAdapter(this, m_MainGist.getRecipeList());
         // Attach the adapter to a ListView
         ListView listView = (ListView) findViewById(R.id.recipe_list);
-        listView.setAdapter(adapter);
+        listView.setAdapter(m_RecipeAdapter);
     }
 
     public void showProgress()
