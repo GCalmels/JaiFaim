@@ -3,7 +3,6 @@ package com.tse.ihm.jaifaim.model;
 import com.google.gson.annotations.SerializedName;
 
 import java.util.ArrayList;
-import java.util.Date;
 
 /**
  * Description : Modèle d'une recette
@@ -21,7 +20,7 @@ public class Recipe {
     private String m_Author;
 
     @SerializedName("creationDate")
-    private Date m_CreationDate;
+    private String m_CreationDate;
 
     @SerializedName("prepTime")
     private String m_PrepTime;
@@ -57,7 +56,7 @@ public class Recipe {
         m_StepList = new ArrayList<Step>();
     }
 
-    public Recipe(String _id, String _title, String _author, Date _creationDate, String _prepTime,
+    public Recipe(String _id, String _title, String _author, String _creationDate, String _prepTime,
                   String _cookingTime, String _imageUrl, ArrayList<Ingredient> _ingredientList,
                   ArrayList<Step> _stepList, Difficulty _difficulty, Type _type) {
         m_Id = _id;
@@ -97,11 +96,11 @@ public class Recipe {
         m_Author = _author;
     }
 
-    public Date getCreationDate() {
+    public String getCreationDate() {
         return m_CreationDate;
     }
 
-    public void setCreationDate(Date _creationDate) {
+    public void setCreationDate(String _creationDate) {
         m_CreationDate = _creationDate;
     }
 

@@ -7,6 +7,7 @@ import com.google.gson.Gson;
 import com.tse.ihm.jaifaim.common.JSONnodes;
 import com.tse.ihm.jaifaim.model.Difficulty;
 import com.tse.ihm.jaifaim.model.Ingredient;
+import com.tse.ihm.jaifaim.model.MainGist;
 import com.tse.ihm.jaifaim.model.Recipe;
 import com.tse.ihm.jaifaim.model.Step;
 import com.tse.ihm.jaifaim.model.Type;
@@ -19,11 +20,9 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.IOException;
-import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.Date;
 
 import de.greenrobot.event.EventBus;
 
@@ -35,9 +34,6 @@ public class GistController {
 
     // ID du gist référence pour toutes les recettes
     private final static String ID_MAIN_GIST = "58d7dde389d53b4cef9c";
-
-    // JSON Node names
-    private static final String TAG_LIST = "list";
 
     /**
      * Récupère toutes les recettes dans une asynctask
@@ -56,80 +52,89 @@ public class GistController {
     }
 
 
-    // Récupération partielle de toutes les recettes
-    public static ArrayList<Recipe> getAllRecipe() {
+    public static String getGistFileOfGist(String _gistId, String recipeName) throws IOException
+    {
         GistService service = new GistService();
-        ArrayList<Recipe> recipeList = new ArrayList<>();
-        try {
-            Gist gist = service.getGist(ID_MAIN_GIST);
+        service.getClient().setOAuth2Token("a466ad6961d1ecf87ced4d9d8fd9860c41193d19");
 
-            // Récupération du fichier contenant le nom de la recette, l'auteur et l'id
-            GistFile recipe_list = gist.getFiles().get("recipe_list");
+        Log.d(TAG, "[getGistFileOfGist] + " + _gistId);
+        Gist gist = service.getGist(_gistId);
 
-            // Parse le string
-            String content = recipe_list.getContent();
+        // Récupération du fichier contenant le nom de la recette, l'auteur et l'id
+        GistFile file = gist.getFiles().get(recipeName);
 
-            JSONArray recipes;
-
-            if (content != null && !content.isEmpty()) {
-                try {
-                    JSONObject jsonObj = new JSONObject(content);
-                    recipes = jsonObj.getJSONArray(TAG_LIST);
-
-                    Log.d(TAG, "[getAllRecipes] number of recipes : " + recipes.length());
-
-                    JSONObject rObject;
-
-                    // Boucle pour récuperer toutes les recettes
-                    for (int i = 0; i < recipes.length(); i++) {
-                        rObject = recipes.getJSONObject(i);
-
-                        Log.d(TAG, "[getAllRecipes] About to retrieve recipe : " + i);
-                        Recipe recipe = populateRecipe(rObject);
-                        Log.d(TAG, "[getAllRecipes] Retrieved : " + i);
-
-                        // Ajout à la liste des recettes
-                        recipeList.add(recipe);
-                    }
-
-                    Log.d(TAG, "[getAllRecipes] recipes retrieved : " + recipeList);
-
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                }
-            }
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
-        return recipeList;
+        // Parse le string
+        return file.getContent();
     }
 
-    public static Recipe populateRecipe(JSONObject object) throws JSONException {
+
+    // Get all Recipes from mainGist
+    public static MainGist getAllRecipe() throws JSONException, IOException {
+
+
+        String content = getGistFileOfGist(ID_MAIN_GIST, JSONnodes.mainGistFile.toString());
+
+        MainGist mainGist = new MainGist();
+
+        if (content != null && !content.isEmpty())
+        {
+            JSONObject jsonObj = new JSONObject(content);
+
+            mainGist = new MainGist();
+            mainGist.setTitle(jsonObj.getString(JSONnodes.mainGistTitle.toString()));
+            mainGist.setOrganisation(jsonObj.getString(JSONnodes.mainGistOrganisation.toString()));
+
+
+            // Get recipes
+            ArrayList<Recipe> recipeList = new ArrayList<>();
+            JSONArray recipes;
+            recipes = jsonObj.getJSONArray(JSONnodes.mainGistRecipeList.toString());
+
+            Log.d(TAG, "[getAllRecipes] number of recipes : " + recipes.length());
+
+            // Boucle pour récuperer toutes les recettes
+            for (int i = 0; i < recipes.length(); i++)
+            {
+                String recipeId = recipes.getString(i);
+
+                Log.d(TAG, "[getAllRecipes] About to retrieve recipe : " + i);
+                Recipe recipe = populateRecipe(recipeId);
+                Log.d(TAG, "[getAllRecipes] Retrieved : " + i);
+
+                // Ajout à la liste des recettes
+                recipeList.add(recipe);
+            }
+
+            Log.d(TAG, "[getAllRecipes] recipes retrieved : " + recipeList);
+
+            mainGist.setRecipeList(recipeList);
+        }
+
+        return mainGist;
+    }
+
+    public static Recipe populateRecipe(String recipeId) throws JSONException, IOException {
+        String recipeContent = getGistFileOfGist(recipeId, JSONnodes.recipeFile.toString());
+        JSONObject jsonObj = new JSONObject(recipeContent);
+
         Recipe recipe = new Recipe();
 
         // Création d'une recette
-        String id = object.getString(JSONnodes.recipeId.toString());
-        String title = object.getString(JSONnodes.recipeTitle.toString());
-        String author = object.getString(JSONnodes.recipeAuthor.toString());
+        String id = recipeId;
+        String title = jsonObj.getString(JSONnodes.recipeTitle.toString());
+        String author = jsonObj.getString(JSONnodes.recipeAuthor.toString());
 
         SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
-        String creationDateString = object.getString(JSONnodes.recipeCreationDate.toString());
-        Date creationDate = new Date();
-        try {
-            creationDate = formatter.parse(creationDateString);
-        } catch (ParseException e) {
-            e.printStackTrace();
-        }
-        String prepTime = object.getString(JSONnodes.recipePrepTime.toString());
-        String cookingTime = object.getString(JSONnodes.recipeCookingTime.toString());
-        String imageUrl = object.getString(JSONnodes.recipeImageUrl.toString());
+        String creationDate = jsonObj.getString(JSONnodes.recipeCreationDate.toString());
+        String prepTime = jsonObj.getString(JSONnodes.recipePrepTime.toString());
+        String cookingTime = jsonObj.getString(JSONnodes.recipeCookingTime.toString());
+        String imageUrl = jsonObj.getString(JSONnodes.recipeImageUrl.toString());
         Log.d(TAG, "[populateRecipe] Image URL : " + imageUrl);
 
 
         // Récupération des ingrédoents
         ArrayList<Ingredient> ingredientList = new ArrayList<>();
-        JSONArray ingredientsList = object.getJSONArray(JSONnodes.recipeIngredientList.toString());
+        JSONArray ingredientsList = jsonObj.getJSONArray(JSONnodes.recipeIngredientList.toString());
         JSONObject rIngredient;
 
         // Boucle pour récuperer tous les ingrédients
@@ -142,7 +147,7 @@ public class GistController {
 
         // Récupération des étapes
         ArrayList<Step> stepList = new ArrayList<>();
-        JSONArray stepsList = object.getJSONArray(JSONnodes.recipeStepList.toString());
+        JSONArray stepsList = jsonObj.getJSONArray(JSONnodes.recipeStepList.toString());
         JSONObject rStep;
 
         // Boucle pour récuperer toutes les étapes
@@ -153,8 +158,8 @@ public class GistController {
             stepList.add(step);
         }
 
-        String difficulty = object.getString(JSONnodes.recipeDifficulty.toString());
-        String type = object.getString(JSONnodes.recipeType.toString());
+        String difficulty = jsonObj.getString(JSONnodes.recipeDifficulty.toString());
+        String type = jsonObj.getString(JSONnodes.recipeType.toString());
 
 
         recipe.setId(id);
@@ -203,20 +208,26 @@ public class GistController {
         Gson gson = new Gson();
         file.setContent(gson.toJson(_recipe));
 
+        // Create new Gist
         Gist gist = new Gist();
         gist.setDescription(_recipe.getTitle());
-        gist.setFiles(Collections.singletonMap(_recipe.getId() + ".json", file));
+        gist.setFiles(Collections.singletonMap(JSONnodes.recipeFile.toString(), file));
         GistService service = new GistService();
         //TODO : Changer par les identifiants de l'utilisateur
         service.getClient().setCredentials("driftse@gmail.com", "Skad9pEj8durj7yoow4jaL6Con4U");
         gist = service.createGist(gist); //returns the created gist
+
+
+        // Update main Gist
+
+
     }
 
     private class MainGistTask extends AsyncTask<Void, Void, Void>
     {
         private final String TAG = MainGistTask.class.getName();
 
-        private ArrayList<Recipe> m_RecipeList;
+        private MainGist m_MainGist;
 
         @Override
         protected void onPreExecute() {
@@ -226,7 +237,16 @@ public class GistController {
         @Override
         protected Void doInBackground(Void... arg0) {
             Log.d(TAG, "[doInBackground] Retrieving recipes");
-            m_RecipeList = GistController.getAllRecipe();
+            try
+            {
+                m_MainGist = GistController.getAllRecipe();
+            } catch (JSONException e)
+            {
+                e.printStackTrace();
+            } catch (IOException e)
+            {
+                e.printStackTrace();
+            }
             return null;
         }
 
@@ -234,7 +254,7 @@ public class GistController {
         protected void onPostExecute(Void result) {
             // Envoi de la réussite ou non à l'activité
             Log.d(TAG, "[onPostExecute] All recipes retrived");
-            EventBus.getDefault().post(m_RecipeList);
+            EventBus.getDefault().post(m_MainGist);
         }
 
     }

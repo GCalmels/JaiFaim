@@ -19,6 +19,7 @@ import com.tse.ihm.jaifaim.model.Step;
 import com.tse.ihm.jaifaim.model.Type;
 
 import java.util.ArrayList;
+import java.util.Date;
 
 import roboguice.activity.RoboActionBarActivity;
 import roboguice.inject.InjectView;
@@ -89,6 +90,9 @@ public class NewRecipeActivity extends RoboActionBarActivity
         recipe.setImageUrl("http://www.ot-cayeuxsurmer.fr/sites/otcsm/files/news/2014/11/08/1807-826.jpg");
 
         recipe.setTitle(m_RecipeTitle.getText().toString());
+        // TODO : changer avec le vrai auteur connecté
+        recipe.setAuthor("Greggy");
+        recipe.setCreationDate(String.valueOf(new Date().getTime()));
         recipe.setPrepTime(m_RecipePrepTime.getText().toString());
         recipe.setCookingTime(m_RecipeCookingTime.getText().toString());
         // TODO: changer

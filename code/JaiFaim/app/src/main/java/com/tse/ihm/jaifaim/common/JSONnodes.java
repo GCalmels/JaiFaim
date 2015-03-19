@@ -5,6 +5,12 @@ package com.tse.ihm.jaifaim.common;
  * Created by Greggy on 18/03/15.
  */
 public enum JSONnodes {
+    //MainGist
+    mainGistFile("recipe_list_gist"),
+    mainGistTitle("title"),
+    mainGistOrganisation("organisation"),
+    mainGistRecipeList("recipeList"),
+
     // Recettes
     recipeId("id"),
     recipeTitle("title"),
@@ -17,6 +23,7 @@ public enum JSONnodes {
     recipeStepList("stepList"),
     recipeDifficulty("difficulty"),
     recipeType("type"),
+    recipeFile("recette.json"),
 
     // Ingrégients
     ingredientName("name"),

@@ -1,12 +1,16 @@
 package com.tse.ihm.jaifaim.model;
 
+import com.google.gson.annotations.SerializedName;
+
 /**
  * Description : Un modele d'ingrédient avec un nom et une quantité
  * Created by Gabriel on 14/03/15.
  */
 public class Ingredient {
-    //TODO: Ajouter les serialize name
+    @SerializedName("name")
     String m_Name;
+
+    @SerializedName("quantity")
     String m_Quantity;
 
     public Ingredient(String _name, String _quantity) {

@@ -16,9 +16,8 @@ import android.widget.ListView;
 import com.tse.ihm.jaifaim.R;
 import com.tse.ihm.jaifaim.adapter.RecipeAdapter;
 import com.tse.ihm.jaifaim.controller.GistController;
+import com.tse.ihm.jaifaim.model.MainGist;
 import com.tse.ihm.jaifaim.model.Recipe;
-
-import java.util.ArrayList;
 
 import de.greenrobot.event.EventBus;
 import roboguice.activity.RoboActionBarActivity;
@@ -33,7 +32,7 @@ public class MainActivity extends RoboActionBarActivity implements OnRefreshList
     @InjectView(R.id.swipe_container)      private SwipeRefreshLayout m_SwipeContainer;
     @InjectView(R.id.recipe_list)          private ListView m_ListView;
 
-    private ArrayList<Recipe> m_RecipeList;
+    private MainGist m_MainGist;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -102,14 +101,14 @@ public class MainActivity extends RoboActionBarActivity implements OnRefreshList
         return true;
     }
 
-    public void onEvent(ArrayList<Recipe> _recipeList)
+    public void onEvent(MainGist _mainGist)
     {
         hideProgress();
-        m_RecipeList = _recipeList;
+        m_MainGist = _mainGist;
 
-        Log.d(TAG, "[onEvent] recette 0 : " + _recipeList.get(0));
+        Log.d(TAG, "[onEvent] recette 0 : " + _mainGist.getRecipeList().get(0));
         // Create the adapter to convert the array to views
-        RecipeAdapter adapter = new RecipeAdapter(this, m_RecipeList);
+        RecipeAdapter adapter = new RecipeAdapter(this, m_MainGist.getRecipeList());
         // Attach the adapter to a ListView
         ListView listView = (ListView) findViewById(R.id.recipe_list);
         listView.setAdapter(adapter);
