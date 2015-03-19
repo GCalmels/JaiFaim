@@ -5,6 +5,7 @@ import android.util.Log;
 
 import com.google.gson.Gson;
 import com.tse.ihm.jaifaim.common.JSONnodes;
+import com.tse.ihm.jaifaim.message.NewGistTaskMessage;
 import com.tse.ihm.jaifaim.model.Difficulty;
 import com.tse.ihm.jaifaim.model.Ingredient;
 import com.tse.ihm.jaifaim.model.MainGist;
@@ -35,24 +36,44 @@ public class GistController {
     // ID du gist référence pour toutes les recettes
     private final static String ID_MAIN_GIST = "58d7dde389d53b4cef9c";
 
+    private static MainGist m_MainGist;
+    private MainGistTask m_MainGistTask;
+    private NewGistTask m_NewGistTask;
+
+    public GistController()
+    {
+        if (m_MainGist == null)
+            m_MainGist = new MainGist();
+        m_MainGistTask = new MainGistTask(this);
+        m_NewGistTask = new NewGistTask(this);
+    }
+
+    public MainGist getMainGist()
+    {
+        return m_MainGist;
+    }
+
     /**
      * Récupère toutes les recettes dans une asynctask
      * pour ne pas bloquer l'UI
      */
     public void getAllRecipesInBackground() {
-        // TODO: Voir s'il ne faut pas passer en paramètres l'id de l'auteur des recettes?
-        MainGistTask mainGistTask = new MainGistTask();
-        mainGistTask.execute();
+        m_MainGistTask.execute();
     }
 
     public void createNewRecipeInBackground(Recipe _recipe) {
         // TODO: Voir s'il ne faut pas passer en paramètres l'id de l'auteur des recettes?
-        NewGistTask newGistTask = new NewGistTask(_recipe);
-        newGistTask.execute();
+        m_NewGistTask.setRecipe(_recipe);
+        m_NewGistTask.execute();
+    }
+
+    public void addNewRecipe(Recipe recipe)
+    {
+        m_MainGist.addRecipe(recipe);
     }
 
 
-    public static String getGistFileOfGist(String _gistId, String recipeName) throws IOException
+    public String getGistFileOfGist(String _gistId, String recipeName) throws IOException
     {
         GistService service = new GistService();
         service.getClient().setOAuth2Token("a466ad6961d1ecf87ced4d9d8fd9860c41193d19");
@@ -69,7 +90,7 @@ public class GistController {
 
 
     // Get all Recipes from mainGist
-    public static MainGist getAllRecipe() throws JSONException, IOException {
+    public MainGist getAllRecipe() throws JSONException, IOException {
 
 
         String content = getGistFileOfGist(ID_MAIN_GIST, JSONnodes.mainGistFile.toString());
@@ -113,7 +134,7 @@ public class GistController {
         return mainGist;
     }
 
-    public static Recipe populateRecipe(String recipeId) throws JSONException, IOException {
+    public Recipe populateRecipe(String recipeId) throws JSONException, IOException {
         String recipeContent = getGistFileOfGist(recipeId, JSONnodes.recipeFile.toString());
         JSONObject jsonObj = new JSONObject(recipeContent);
 
@@ -177,7 +198,7 @@ public class GistController {
         return recipe;
     }
 
-    public static Ingredient populateIngredient(JSONObject object) throws JSONException {
+    public Ingredient populateIngredient(JSONObject object) throws JSONException {
         Ingredient ingredient = new Ingredient();
 
         String name = object.getString(JSONnodes.ingredientName.toString());
@@ -189,7 +210,7 @@ public class GistController {
         return ingredient;
     }
 
-    public static Step populateStep(JSONObject object) throws JSONException {
+    public Step populateStep(JSONObject object) throws JSONException {
         Step step = new Step();
 
         //String description = object.getString(JSONnodes.stepDescription.toString());
@@ -201,7 +222,7 @@ public class GistController {
         return step;
     }
 
-    public static void createNewRecipe(Recipe _recipe) throws IOException
+    public void createNewRecipe(Recipe _recipe) throws IOException
     {
         GistFile file = new GistFile();
 
@@ -217,17 +238,40 @@ public class GistController {
         service.getClient().setCredentials("driftse@gmail.com", "Skad9pEj8durj7yoow4jaL6Con4U");
         gist = service.createGist(gist); //returns the created gist
 
+        _recipe.setId(gist.getId());
+        addNewRecipe(_recipe);
 
         // Update main Gist
+        updateMainGist();
+    }
 
+    public void updateMainGist() throws IOException
+    {
+        GistService service = new GistService();
+        service.getClient().setOAuth2Token("a466ad6961d1ecf87ced4d9d8fd9860c41193d19");
 
+        Log.d(TAG, "[getGistFileOfGist] + " + ID_MAIN_GIST);
+        Gist gist = service.getGist(ID_MAIN_GIST);
+
+        // Récupération du fichier contenant le nom de la recette, l'auteur et l'id
+        GistFile file = new GistFile();
+        file.setContent(m_MainGist.toString());
+
+        gist.setFiles(Collections.singletonMap(JSONnodes.mainGistFile.toString(), file));
+
+        service.updateGist(gist);
     }
 
     private class MainGistTask extends AsyncTask<Void, Void, Void>
     {
         private final String TAG = MainGistTask.class.getName();
 
-        private MainGist m_MainGist;
+        private GistController m_GistController;
+
+        public MainGistTask(GistController controller)
+        {
+            m_GistController = controller;
+        }
 
         @Override
         protected void onPreExecute() {
@@ -239,7 +283,7 @@ public class GistController {
             Log.d(TAG, "[doInBackground] Retrieving recipes");
             try
             {
-                m_MainGist = GistController.getAllRecipe();
+                m_MainGist = m_GistController.getAllRecipe();
             } catch (JSONException e)
             {
                 e.printStackTrace();
@@ -264,7 +308,18 @@ public class GistController {
     {
         private final String TAG = MainGistTask.class.getName();
 
+        private GistController m_GistController;
         private Recipe m_Recipe;
+
+        public NewGistTask(GistController controller)
+        {
+            m_GistController = controller;
+        }
+
+        public void setRecipe(Recipe recipe)
+        {
+            m_Recipe = recipe;
+        }
 
         public NewGistTask(Recipe _recipe)
         {
@@ -281,7 +336,7 @@ public class GistController {
             Log.d(TAG, "[doInBackground] creating recipe");
             try
             {
-                GistController.createNewRecipe(m_Recipe);
+                m_GistController.createNewRecipe(m_Recipe);
             } catch (IOException e)
             {
                 e.printStackTrace();
@@ -293,7 +348,7 @@ public class GistController {
         protected void onPostExecute(Void result) {
             // Envoi de la réussite ou non à l'activité
             Log.d(TAG, "[onPostExecute] recipe created");
-            EventBus.getDefault().post(m_Recipe);
+            EventBus.getDefault().post(new NewGistTaskMessage(true));
         }
 
     }

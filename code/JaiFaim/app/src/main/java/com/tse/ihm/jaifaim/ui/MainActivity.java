@@ -16,6 +16,7 @@ import android.widget.ListView;
 import com.tse.ihm.jaifaim.R;
 import com.tse.ihm.jaifaim.adapter.RecipeAdapter;
 import com.tse.ihm.jaifaim.controller.GistController;
+import com.tse.ihm.jaifaim.message.NewGistTaskMessage;
 import com.tse.ihm.jaifaim.model.MainGist;
 import com.tse.ihm.jaifaim.model.Recipe;
 
@@ -32,7 +33,13 @@ public class MainActivity extends RoboActionBarActivity implements OnRefreshList
     @InjectView(R.id.swipe_container)      private SwipeRefreshLayout m_SwipeContainer;
     @InjectView(R.id.recipe_list)          private ListView m_ListView;
 
+    private GistController m_GistController;
     private MainGist m_MainGist;
+
+    public MainActivity()
+    {
+        m_GistController = new GistController();
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -77,6 +84,13 @@ public class MainActivity extends RoboActionBarActivity implements OnRefreshList
     }
 
     @Override
+    protected void onNewIntent(Intent intent)
+    {
+        super.onNewIntent(intent);
+        showProgress();
+    }
+
+    @Override
     public void onRefresh()
     {
         GistController controller = new GistController();
@@ -107,6 +121,23 @@ public class MainActivity extends RoboActionBarActivity implements OnRefreshList
         m_MainGist = _mainGist;
 
         Log.d(TAG, "[onEvent] recette 0 : " + _mainGist.getRecipeList().get(0));
+        refreshListView();
+    }
+
+    public void onEvent(NewGistTaskMessage message)
+    {
+        if (message.getResult())
+        {
+            m_MainGist = m_GistController.getMainGist();
+            refreshListView();
+            hideProgress();
+        } else {
+            Log.d(TAG, "[onEvent] recipe not created");
+        }
+    }
+
+    public void refreshListView()
+    {
         // Create the adapter to convert the array to views
         RecipeAdapter adapter = new RecipeAdapter(this, m_MainGist.getRecipeList());
         // Attach the adapter to a ListView

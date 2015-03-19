@@ -114,6 +114,9 @@ public class NewRecipeActivity extends RoboActionBarActivity
 
 
         gistController.createNewRecipeInBackground(recipe);
+
+        Intent intent = new Intent(this, MainActivity.class);
+        startActivity(intent);
     }
 
 
