@@ -2,11 +2,14 @@ package com.tse.ihm.jaifaim.ui;
 
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
+import android.text.Html;
+import android.text.method.LinkMovementMethod;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.TextView;
 
 import com.tse.ihm.jaifaim.R;
 import com.tse.ihm.jaifaim.asynctask.LoginTask;
@@ -27,6 +30,13 @@ public class LoginActivity extends ActionBarActivity {
 
         m_EditTextUsername = (EditText)findViewById(R.id.edittext_username);
         m_EditTextPassw0rd = (EditText)findViewById(R.id.edittext_password);
+
+        // Link to sign up
+        TextView signUpTxtView = (TextView)findViewById(R.id.login_activity_sign_up);
+        String linkText = "Vous n'avez pas de compte? Quel honte!" +
+                "Par <a href='https://github.com/join'>ici</a> pour en créer un!";
+        signUpTxtView.setText(Html.fromHtml(linkText));
+        signUpTxtView.setMovementMethod(LinkMovementMethod.getInstance());
 
         // Event
         EventBus.getDefault().register(this);
