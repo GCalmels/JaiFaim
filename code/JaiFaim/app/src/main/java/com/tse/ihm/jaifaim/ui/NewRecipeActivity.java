@@ -28,7 +28,7 @@ public class NewRecipeActivity extends RoboActionBarActivity
 {
     private static final String TAG = NewRecipeActivity.class.getName();
 
-    @InjectView(R.id.new_recipe_container)      private LinearLayout m_Container;
+    @InjectView(R.id.new_recipe_image_container)      private LinearLayout m_Container;
     @InjectView(R.id.new_recipe_image)          private ImageView m_RecipeImage;
     @InjectView(R.id.new_recipe_title)          private EditText m_RecipeTitle;
     @InjectView(R.id.new_recipe_prep_time)      private EditText m_RecipePrepTime;

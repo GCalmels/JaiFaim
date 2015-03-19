@@ -49,4 +49,8 @@ dependencies {
     // https://github.com/roboguice/roboguice/wiki
     compile 'org.roboguice:roboguice:3.+'
     provided 'org.roboguice:roboblender:3.+'
+
+    // Swipe cards
+    // https://github.com/Diolor/Swipecards
+    compile 'com.lorentzos.swipecards:library:1.0.8@aar'
 }

@@ -5,7 +5,7 @@
     android:layout_height="match_parent">
 
 <LinearLayout
-    android:id="@+id/new_recipe_container"
+    android:id="@+id/new_recipe_image_container"
     android:layout_width="match_parent"
     android:layout_height="match_parent" android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
@@ -19,30 +19,52 @@
         android:id="@+id/new_recipe_image"
         android:layout_width="match_parent"
         android:layout_height="100dp"
-        android:scaleType="centerCrop"
-        android:src="@drawable/poulet" />
+        android:scaleType="centerInside"
+        android:src="@drawable/camera" />
+
+    <LinearLayout
+        android:id="@+id/new_recipe_container"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:paddingLeft="10dp"
+        android:paddingRight="10dp"
+        android:paddingTop="10dp"
+        android:paddingBottom="10dp"
+        tools:context="com.tse.ihm.jaifaim.ui.NewRecipeActivity"
+        android:orientation="vertical">
 
     <EditText
         android:id="@+id/new_recipe_title"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:layout_marginBottom="8dp"
+        android:maxLines="1"
         android:hint="@string/new_recipe_title"/>
 
     <EditText
         android:id="@+id/new_recipe_prep_time"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:layout_marginBottom="8dp"
+        android:maxLines="1"
         android:hint="@string/new_recipe_prep_time"/>
 
     <EditText
         android:id="@+id/new_recipe_cooking_time"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:layout_marginBottom="8dp"
+        android:maxLines="1"
         android:hint="@string/new_recipe_cooking_time"/>
 
     <RadioGroup
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:layout_marginBottom="8dp"
         android:orientation="vertical">
 
 
@@ -75,17 +97,23 @@
     <RadioGroup
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:layout_marginBottom="8dp"
         android:orientation="vertical">
 
 
         <TextView
+            android:id="@+id/new_recipe_type"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:maxLines="1"
             android:text="@string/new_recipe_type"/>
 
         <LinearLayout
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:layout_marginBottom="8dp"
             android:orientation="horizontal"
             android:gravity="center">
 
@@ -108,12 +136,18 @@
         android:id="@+id/new_recipe_ingredient"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:layout_marginBottom="8dp"
+        android:maxLines="1"
         android:hint="Ingrédient 1" />
 
     <EditText
         android:id="@+id/new_recipe_step"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:layout_marginBottom="8dp"
+        android:maxLines="1"
         android:hint="Etape 1" />
 
 
@@ -122,6 +156,8 @@
         android:layout_height="wrap_content"
         android:text="Créer la recette"
         android:onClick="createRecipe"/>
+
+    </LinearLayout>
 
 </LinearLayout>
 

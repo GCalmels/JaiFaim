@@ -31,4 +31,5 @@
     <string name="new_recipe_type_dessert">Dessert</string>
 
     <string name="hello_world">Hello world!</string>
+    <string name="title_activity_step">StepActivity</string>
 </resources>

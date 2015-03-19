@@ -1,8 +1,10 @@
 package com.tse.ihm.jaifaim.ui;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
@@ -22,10 +24,10 @@ public class ViewRecipeActivity extends RoboActionBarActivity
 
     @InjectView(R.id.view_recipe_title)      private TextView m_Title;
     @InjectView(R.id.view_recipe_button_like)      private ImageButton m_ButtonLike;
-    @InjectView(R.id.view_recipe_button_2)      private ImageButton m_Button2;
-    @InjectView(R.id.view_recipe_button_3)      private ImageButton m_Button3;
-    @InjectView(R.id.view_recipe_button_4)      private ImageButton m_Button4;
-    @InjectView(R.id.view_recipe_button_5)      private ImageButton m_Button5;
+    @InjectView(R.id.view_recipe_button_plus)      private ImageButton m_Button2;
+    @InjectView(R.id.view_recipe_button_ingredient_list)      private ImageButton m_Button3;
+    @InjectView(R.id.view_recipe_button_add_comment)      private ImageButton m_Button4;
+    @InjectView(R.id.view_recipe_button_author)      private ImageButton m_Button5;
     @InjectView(R.id.view_recipe_image)      private ImageView m_Image;
     @InjectView(R.id.view_recipe_cooking_time)      private TextView m_CookingTime;
     @InjectView(R.id.view_recipe_prep_time)      private TextView m_PrepTime;
@@ -110,5 +112,10 @@ public class ViewRecipeActivity extends RoboActionBarActivity
         return super.onOptionsItemSelected(item);
     }
 
+    public void showSteps(View v)
+    {
+        Intent i = new Intent(ViewRecipeActivity.this, StepActivity.class);
+        startActivity(i);
+    }
 
 }
