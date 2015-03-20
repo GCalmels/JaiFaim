@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">JaiFaim</string>
+    <string name="app_name">Recettes publiques</string>
     <string name="main_title">J\'ai Faim</string>
 
     <!-- Action Bar -->
@@ -10,13 +10,13 @@
     <string name="action_show_profile">Profile</string>
 
     <!-- Login Activity -->
-    <string name="title_activity_login">Login</string>
+    <string name="title_activity_login">Identification Github</string>
     <string name="login_activity_title">Indentifiez-vous</string>
     <string name="login_activity_button">Se connecter</string>
     <string name="login_activity_hint_password">Mot de passe</string>
     <string name="login_activity_hint_username">Adresse mail</string>
-    <string name="title_activity_view_recipe">ViewRecipeActivity</string>
-    <string name="title_activity_new_recipe">NewRecipeActivity</string>
+    <string name="title_activity_view_recipe">Détail d\'une recette</string>
+    <string name="title_activity_new_recipe">Nouvelle recette</string>
 
     <!-- New Recipe Activity -->
     <string name="new_recipe_title">Titre de la recette</string>
@@ -32,6 +32,6 @@
     <string name="new_recipe_type_dessert">Dessert</string>
 
 
-    <string name="title_activity_step">StepActivity</string>
-    <string name="title_activity_view_user">ViewUserActivity</string>
+    <string name="title_activity_step">Etapes</string>
+    <string name="title_activity_view_user">Détails d\'un chef</string>
 </resources>

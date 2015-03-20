@@ -17,7 +17,8 @@
         android:id="@+id/activity_main_search"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/activity_main_title">
+        android:layout_below="@id/activity_main_title"
+        android:queryHint="Recette, chef, ...">
     </SearchView>
 
     <android.support.v4.widget.SwipeRefreshLayout

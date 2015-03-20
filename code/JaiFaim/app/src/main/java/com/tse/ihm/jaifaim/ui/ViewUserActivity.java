@@ -26,6 +26,7 @@ public class ViewUserActivity extends RoboActionBarActivity implements MaterialT
 
     @InjectView (R.id.tabHost) private MaterialTabHost m_TabHost;
     @InjectView (R.id.user_activity_username) private TextView m_UserName;
+    @InjectView (R.id.user_activity_my_recipe_list_description) private TextView m_ListDescription;
     @InjectView (R.id.user_activity_my_recipe_list) private ListView m_RecipeList;
     //@InjectView (R.id.user_activity_favorite_recipe_list) private ListView m_FavoriteRecipeList;
 
@@ -65,9 +66,9 @@ public class ViewUserActivity extends RoboActionBarActivity implements MaterialT
 
     private void initTabs() {
         m_TabHost.addTab(m_TabHost.newTab().setIcon(getResources().getDrawable(R.drawable.ingredient_list)).setTabListener(this));
-        m_TabHost.addTab(m_TabHost.newTab().setIcon(getResources().getDrawable(R.drawable.ingredient_list)).setTabListener(this));
-        m_TabHost.addTab(m_TabHost.newTab().setIcon(getResources().getDrawable(R.drawable.ingredient_list)).setTabListener(this));
-        m_TabHost.addTab(m_TabHost.newTab().setIcon(getResources().getDrawable(R.drawable.ingredient_list)).setTabListener(this));
+        m_TabHost.addTab(m_TabHost.newTab().setIcon(getResources().getDrawable(R.drawable.favorites)).setTabListener(this));
+        //m_TabHost.addTab(m_TabHost.newTab().setIcon(getResources().getDrawable(R.drawable.ingredient_list)).setTabListener(this));
+        //m_TabHost.addTab(m_TabHost.newTab().setIcon(getResources().getDrawable(R.drawable.ingredient_list)).setTabListener(this));
 
     }
 
@@ -92,22 +93,16 @@ public class ViewUserActivity extends RoboActionBarActivity implements MaterialT
             case 0:
                 Log.d(TAG, "[onTabSelected] Filter nothing");
 
-                /*m_RecipeList.clear();
-                m_RecipeList.addAll(mParseController.getPostList());
-
-                changeAdapter();*/
+                m_ListDescription.setText("Mes recettes");
 
                 break;
 
             case 1:
                 Log.d(TAG, "[onTabSelected] Filter articles");
-                /*
 
-                mListNewsToView.clear();
-                mListNewsToView.addAll(mParseController.getPostCategory(PostParse.TypeOfInfos.article));
+                // TODO : afficher les recettes favorites
+                m_ListDescription.setText("Mes recettes favorites");
 
-                changeAdapter();
-*/
                 break;
 
             case 2:
