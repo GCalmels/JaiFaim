@@ -134,6 +134,12 @@
 
     </RadioGroup>
 
+        <LinearLayout
+            android:id="@+id/new_recipe_container_ingredients"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:background="#F5F5F5">
     <EditText
         android:id="@+id/new_recipe_ingredient"
         android:layout_width="match_parent"
@@ -144,7 +150,17 @@
         android:text="Pasta"
         android:hint="Ingrédient 1" />
 
-    <EditText
+        </LinearLayout>
+
+
+        <LinearLayout
+            android:id="@+id/new_recipe_container_steps"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:background="#FFFAFA">
+            
+        <EditText
         android:id="@+id/new_recipe_step"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -153,6 +169,8 @@
         android:maxLines="1"
         android:text="Mettre les pates dans l'eau puis remuer"
         android:hint="Etape 1" />
+
+        </LinearLayout>
 
 
     <Button

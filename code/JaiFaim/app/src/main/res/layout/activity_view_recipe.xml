@@ -133,11 +133,31 @@
         android:text="niveau" />
 
     <TextView
-        android:id="@+id/view_recipe_likes_description"
+        android:id="@+id/view_recipe_type_description"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_toRightOf="@id/view_recipe_image"
         android:layout_below="@id/view_recipe_difficulty"
+        android:gravity="left"
+        android:textSize="18sp"
+        android:text="Type" />
+
+    <TextView
+        android:id="@+id/view_recipe_type"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_toRightOf="@id/view_recipe_image"
+        android:layout_below="@id/view_recipe_type_description"
+        android:gravity="right"
+        android:textStyle="bold"
+        android:text="Type" />
+
+    <TextView
+        android:id="@+id/view_recipe_likes_description"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_toRightOf="@id/view_recipe_image"
+        android:layout_below="@id/view_recipe_type"
         android:gravity="left"
         android:textSize="18sp"
         android:text="Likes" />

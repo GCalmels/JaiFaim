@@ -32,6 +32,7 @@ public class ViewRecipeActivity extends RoboActionBarActivity
     @InjectView(R.id.view_recipe_cooking_time)      private TextView m_CookingTime;
     @InjectView(R.id.view_recipe_prep_time)      private TextView m_PrepTime;
     @InjectView(R.id.view_recipe_difficulty)      private TextView m_Difficulty;
+    @InjectView(R.id.view_recipe_type)      private TextView m_Type;
     @InjectView(R.id.view_recipe_likes)      private TextView m_Likes;
     @InjectView(R.id.view_recipe_number_people)      private TextView m_NumberOfPeople;
     @InjectView(R.id.view_recipe_ingredients)      private TextView m_Ingredients;
@@ -62,6 +63,7 @@ public class ViewRecipeActivity extends RoboActionBarActivity
         m_CookingTime.setText(m_Recipe.getCookingTime());
         m_PrepTime.setText(m_Recipe.getPrepTime());
         m_Difficulty.setText(m_Recipe.getDifficulty().toString());
+        m_Type.setText(m_Recipe.getType().toString());
         //TODO: get likes
         //m_Likes.setText(m_Recipe.getLikes());
         m_Ingredients.setText(m_Recipe.getIngredientList().get(0).getName());

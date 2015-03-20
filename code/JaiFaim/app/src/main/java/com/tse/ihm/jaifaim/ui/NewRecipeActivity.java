@@ -2,14 +2,19 @@ package com.tse.ihm.jaifaim.ui;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.RadioButton;
 import android.widget.RadioGroup;
+import android.widget.TextView;
 
 import com.tse.ihm.jaifaim.R;
 import com.tse.ihm.jaifaim.controller.GistController;
@@ -19,6 +24,8 @@ import com.tse.ihm.jaifaim.model.Ingredient;
 import com.tse.ihm.jaifaim.model.Recipe;
 import com.tse.ihm.jaifaim.model.Step;
 import com.tse.ihm.jaifaim.model.Type;
+
+import org.w3c.dom.Text;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -32,13 +39,15 @@ public class NewRecipeActivity extends RoboActionBarActivity
 {
     private static final String TAG = NewRecipeActivity.class.getName();
 
-    @InjectView(R.id.new_recipe_image_container)      private LinearLayout m_Container;
+    @InjectView(R.id.new_recipe_image_container)      private LinearLayout m_ImageContainer;
+    @InjectView(R.id.new_recipe_container_ingredients)      private LinearLayout m_IngredientsContainer;
+    @InjectView(R.id.new_recipe_container_steps)      private LinearLayout m_StepsContainer;
     @InjectView(R.id.new_recipe_image)          private ImageView m_RecipeImage;
     @InjectView(R.id.new_recipe_title)          private EditText m_RecipeTitle;
     @InjectView(R.id.new_recipe_prep_time)      private EditText m_RecipePrepTime;
     @InjectView(R.id.new_recipe_cooking_time)   private EditText m_RecipeCookingTime;
-    @InjectView(R.id.new_recipe_radio_difficulty)   private RadioGroup m_RecipeTypeGroup;
-    @InjectView(R.id.new_recipe_radio_type)   private RadioGroup m_RecipeDifficultyGroup;
+    @InjectView(R.id.new_recipe_radio_type)   private RadioGroup m_RecipeTypeGroup;
+    @InjectView(R.id.new_recipe_radio_difficulty)   private RadioGroup m_RecipeDifficultyGroup;
     @InjectView(R.id.new_recipe_ingredient)     private EditText m_RecipeIngredient;
     @InjectView(R.id.new_recipe_step)           private EditText m_RecipeStep;
 
@@ -63,6 +72,9 @@ public class NewRecipeActivity extends RoboActionBarActivity
         getDifficultyFromSelection();
         getTypeFromSelection();
 
+        addTextWatcher(m_IngredientsContainer, m_RecipeIngredient);
+        addTextWatcher(m_StepsContainer, m_RecipeStep);
+
         Log.d(TAG, "[onCreate] user : " + m_UserHelper.getUser().getUsername());
     }
 
@@ -84,11 +96,7 @@ public class NewRecipeActivity extends RoboActionBarActivity
         return true;
     }
 
-    public void addIngredientEditText(View v)
-    {
-        Log.d(TAG, "[addIngredientEditText]");
-        m_Container.addView(new EditText(NewRecipeActivity.this));
-    }
+
 
 
     /**
@@ -112,19 +120,24 @@ public class NewRecipeActivity extends RoboActionBarActivity
         recipe.setCookingTime(m_RecipeCookingTime.getText().toString());
         recipe.setDifficulty(m_Difficulty);
         recipe.setType(m_Type);
-        // TODO : compléter
-        Ingredient ing = new Ingredient();
-        ing.setName(m_RecipeIngredient.getText().toString());
+
         ArrayList<Ingredient> ingredientList = new ArrayList<>();
-        ingredientList.add(ing);
+        for (EditText editText : getAllEditText(m_IngredientsContainer))
+        {
+            Ingredient ing = new Ingredient();
+            ing.setName(editText.getText().toString());
+            ingredientList.add(ing);
+        }
         recipe.setIngredientList(ingredientList);
 
-        Step step = new Step();
-        step.setDescription(m_RecipeStep.getText().toString());
         ArrayList<Step> stepList = new ArrayList<>();
-        stepList.add(step);
+        for (EditText editText : getAllEditText(m_StepsContainer))
+        {
+            Step step = new Step();
+            step.setDescription(editText.getText().toString());
+            stepList.add(step);
+        }
         recipe.setStepList(stepList);
-
 
         gistController.createNewRecipeInBackground(m_UserHelper.getUser(), recipe);
 
@@ -143,6 +156,7 @@ public class NewRecipeActivity extends RoboActionBarActivity
 
             @Override
             public void onCheckedChanged(RadioGroup group, int checkedId) {
+
                 // find which radio button is selected
                 if(checkedId == R.id.new_recipe_difficulty_easy) {
                     m_Difficulty = Difficulty.EASY;
@@ -155,6 +169,9 @@ public class NewRecipeActivity extends RoboActionBarActivity
 
         });
 
+
+
+
     }
 
     /**
@@ -166,6 +183,7 @@ public class NewRecipeActivity extends RoboActionBarActivity
 
             @Override
             public void onCheckedChanged(RadioGroup group, int checkedId) {
+
                 // find which radio button is selected
                 if (checkedId == R.id.new_recipe_radio_type_starter) {
                     m_Type = Type.STARTER;
@@ -177,5 +195,73 @@ public class NewRecipeActivity extends RoboActionBarActivity
             }
 
         });
+
+    }
+
+
+    public void addTextWatcher(final LinearLayout _layout, EditText _textview)
+    {
+        _textview.addTextChangedListener(new TextWatcher() {
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count)
+            {
+
+            }
+
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after)
+            {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable s)
+            {
+                String nextIngredient = getLastEditText(_layout).getText().toString();
+
+                if (s.length() > 0 && !nextIngredient.equals("")) {
+                    EditText et = new EditText(NewRecipeActivity.this);
+                    LinearLayout.LayoutParams p = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+                    et.setLayoutParams(p);
+                    et.setHint(String.valueOf(_layout.getChildCount() + 1) + ":");
+                    addEditText(_layout, et);
+                } else {
+                    removeLastEditText(_layout);
+                }
+            }
+        });
+    }
+
+    public EditText getLastEditText(LinearLayout _layout)
+    {
+        return (EditText)_layout.getChildAt(_layout.getChildCount() - 1);
+    }
+
+    public ArrayList<EditText> getAllEditText(LinearLayout _layout)
+    {
+        ArrayList<EditText> list = new ArrayList<>();
+        for (int i=0 ; i< _layout.getChildCount() ; i++)
+        {
+            list.add((EditText)_layout.getChildAt(i));
+        }
+
+        return list;
+    }
+
+    public void addEditText(LinearLayout _layout, EditText _et)
+    {
+        Log.d(TAG, "[addEditText]");
+        _layout.addView(_et);
+        addTextWatcher(_layout, _et);
+    }
+
+    public void removeLastEditText(LinearLayout _layout)
+    {
+        if (_layout.getChildCount() > 1)
+        {
+            _layout.removeView(_layout.getChildAt(_layout.getChildCount()-1));
+        }
+
     }
 }
