@@ -1,0 +1,61 @@
+<ScrollView
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:android="http://schemas.android.com/apk/res/android" >
+
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
+    android:layout_height="match_parent" android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    tools:context="com.tse.ihm.jaifaim.ui.ViewUserActivity">
+
+
+    <TextView
+        android:id="@+id/user_activity_username"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:textSize="50dp"/>
+
+
+    <TextView
+        android:id="@+id/user_activity_my_recipe_list_description"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/user_activity_username"
+        android:gravity="center"
+        android:textSize="20dp"
+        android:text="Mes recettes"/>
+
+    <ListView
+        android:id="@+id/user_activity_my_recipe_list"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@id/user_activity_my_recipe_list_description"
+        android:layout_marginTop="20dp">
+    </ListView>
+
+
+    <TextView
+        android:id="@+id/user_activity_favorite_recipe_list_description"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/user_activity_my_recipe_list"
+        android:gravity="center"
+        android:textSize="20dp"
+        android:text="Mes recettes favorites"/>
+
+    <ListView
+        android:id="@+id/user_activity_favorite_recipe_list"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@id/user_activity_favorite_recipe_list_description"
+        android:layout_marginTop="20dp">
+    </ListView>
+
+
+</RelativeLayout>
+
+    </ScrollView>

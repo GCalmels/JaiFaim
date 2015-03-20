@@ -32,6 +32,7 @@ import java.util.Date;
 
 import javax.inject.Inject;
 
+import de.greenrobot.event.EventBus;
 import roboguice.activity.RoboActionBarActivity;
 import roboguice.inject.InjectView;
 
@@ -54,8 +55,8 @@ public class NewRecipeActivity extends RoboActionBarActivity
     @Inject
     UserHelper m_UserHelper;
 
-    private Difficulty m_Difficulty;
-    private Type m_Type;
+    private Difficulty m_Difficulty = Difficulty.EASY;
+    private Type m_Type = Type.STARTER;
 
     private ArrayList<EditText> m_RecipeIngredients;
     private ArrayList<EditText> m_RecipeSteps;

@@ -187,7 +187,7 @@ public class GistController {
             stepList.add(step);
         }
 
-        String difficulty = jsonObj.getString(JSONnodes.recipeDifficulty.toString());
+        String difficulty  = jsonObj.getString(JSONnodes.recipeDifficulty.toString());
         String type = jsonObj.getString(JSONnodes.recipeType.toString());
 
 
@@ -200,8 +200,8 @@ public class GistController {
         recipe.setImageUrl(imageUrl);
         recipe.setIngredientList(ingredientList);
         recipe.setStepList(stepList);
-        recipe.setDifficulty(Difficulty.HARD);
-        recipe.setType(Type.DISH);
+        recipe.setDifficulty(Difficulty.valueOf(difficulty));
+        recipe.setType(Type.valueOf(type));
 
         return recipe;
     }
@@ -221,13 +221,24 @@ public class GistController {
     public Step populateStep(JSONObject object) throws JSONException {
         Step step = new Step();
 
-        //String description = object.getString(JSONnodes.stepDescription.toString());
-        String description = "A changer ... TODO";
-
-
+        String description = object.getString(JSONnodes.stepDescription.toString());
         step.setDescription(description);
 
         return step;
+    }
+
+    public ArrayList<Recipe> getRecipeOfUser(HungryUser _user)
+    {
+        ArrayList<Recipe> list = new ArrayList<>();
+        for (Recipe r : m_MainGist.getRecipeList())
+        {
+            if (r.getAuthor().equals(_user.getUsername()))
+            {
+                list.add(r);
+            }
+        }
+
+        return list;
     }
 
     public void createNewRecipe(HungryUser _user, Recipe _recipe) throws IOException

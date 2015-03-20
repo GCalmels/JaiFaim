@@ -43,7 +43,6 @@ public class MainActivity extends RoboActionBarActivity implements OnRefreshList
 
     private GistController m_GistController;
     private MainGist m_MainGist;
-    private HungryUser m_User;
     private RecipeAdapter m_RecipeAdapter;
 
     public MainActivity()
@@ -194,8 +193,7 @@ public class MainActivity extends RoboActionBarActivity implements OnRefreshList
         // Create the adapter to convert the array to views
         m_RecipeAdapter = new RecipeAdapter(this, m_MainGist.getRecipeList());
         // Attach the adapter to a ListView
-        ListView listView = (ListView) findViewById(R.id.recipe_list);
-        listView.setAdapter(m_RecipeAdapter);
+        m_ListView.setAdapter(m_RecipeAdapter);
     }
 
     public void showProgress()

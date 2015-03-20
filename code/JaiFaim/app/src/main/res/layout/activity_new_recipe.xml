@@ -139,7 +139,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            android:background="#F5F5F5">
+            android:background="#FFDAB9">
     <EditText
         android:id="@+id/new_recipe_ingredient"
         android:layout_width="match_parent"
@@ -158,7 +158,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            android:background="#FFFAFA">
+            android:background="#F0FFF0">
             
         <EditText
         android:id="@+id/new_recipe_step"

@@ -32,4 +32,5 @@
 
     <string name="hello_world">Hello world!</string>
     <string name="title_activity_step">StepActivity</string>
+    <string name="title_activity_view_user">ViewUserActivity</string>
 </resources>

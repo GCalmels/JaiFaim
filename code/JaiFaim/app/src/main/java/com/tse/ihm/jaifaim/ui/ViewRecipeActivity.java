@@ -2,6 +2,7 @@ package com.tse.ihm.jaifaim.ui;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -12,6 +13,7 @@ import android.widget.TextView;
 
 import com.koushikdutta.ion.Ion;
 import com.tse.ihm.jaifaim.R;
+import com.tse.ihm.jaifaim.model.Ingredient;
 import com.tse.ihm.jaifaim.model.Recipe;
 
 import de.greenrobot.event.EventBus;
@@ -36,6 +38,7 @@ public class ViewRecipeActivity extends RoboActionBarActivity
     @InjectView(R.id.view_recipe_likes)      private TextView m_Likes;
     @InjectView(R.id.view_recipe_number_people)      private TextView m_NumberOfPeople;
     @InjectView(R.id.view_recipe_ingredients)      private TextView m_Ingredients;
+    @InjectView(R.id.view_recipe_steps)      private TextView m_Steps;
     @InjectView(R.id.view_recipe_button_start)      private Button m_StartRecipe;
 
 
@@ -65,8 +68,17 @@ public class ViewRecipeActivity extends RoboActionBarActivity
         m_Difficulty.setText(m_Recipe.getDifficulty().toString());
         m_Type.setText(m_Recipe.getType().toString());
         //TODO: get likes
-        //m_Likes.setText(m_Recipe.getLikes());
-        m_Ingredients.setText(m_Recipe.getIngredientList().get(0).getName());
+        m_Likes.setText(String.valueOf(0));
+        m_NumberOfPeople.setText(String.valueOf(4));
+        m_Ingredients.setText("");
+        for (Ingredient i : m_Recipe.getIngredientList())
+        {
+            m_Ingredients.setText(m_Ingredients.getText() + "\n" + i.getName());
+        }
+
+        m_Steps.setText(String.valueOf(m_Recipe.getStepList().size()));
+
+        Log.d(TAG, "[fillRecipeFields] steps : " + m_Recipe.getStepList());
     }
 
     @Override
@@ -116,6 +128,7 @@ public class ViewRecipeActivity extends RoboActionBarActivity
 
     public void showSteps(View v)
     {
+        EventBus.getDefault().postSticky(m_Recipe);
         Intent i = new Intent(ViewRecipeActivity.this, StepActivity.class);
         startActivity(i);
     }

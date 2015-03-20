@@ -1,5 +1,6 @@
 package com.tse.ihm.jaifaim.ui;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
@@ -9,18 +10,26 @@ import android.widget.Toast;
 
 import com.lorentzos.flingswipe.SwipeFlingAdapterView;
 import com.tse.ihm.jaifaim.R;
+import com.tse.ihm.jaifaim.model.Recipe;
+import com.tse.ihm.jaifaim.model.Step;
 
 import java.util.ArrayList;
+import java.util.LinkedList;
 
+import de.greenrobot.event.EventBus;
 import roboguice.activity.RoboActionBarActivity;
 import roboguice.inject.InjectView;
 
 public class StepActivity extends RoboActionBarActivity
 {
+    private static final String TAG = StepActivity.class.getName();
+
     @InjectView(R.id.step_flingView)      private SwipeFlingAdapterView m_FlingCard;
 
-    private ArrayList<String> al;
-    private ArrayAdapter<String> arrayAdapter;
+    private Recipe m_Recipe;
+    private LinkedList<String> m_StepList;
+    private LinkedList<String> m_StepsDone;
+    private ArrayAdapter<String> m_ArrayAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -28,24 +37,20 @@ public class StepActivity extends RoboActionBarActivity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_step);
 
-        al = new ArrayList<String>();
-        al.add("php");
-        al.add("c");
-        al.add("python");
-        al.add("java");
+        m_StepsDone = new LinkedList<>();
 
         //choose your favorite adapter
-        arrayAdapter = new ArrayAdapter<String>(this, R.layout.step_item, R.id.step_description, al);
+        m_ArrayAdapter = new ArrayAdapter<String>(this, R.layout.step_item, R.id.step_description, m_StepList);
 
         //set the listener and the adapter
-        m_FlingCard.setAdapter(arrayAdapter);
+        m_FlingCard.setAdapter(m_ArrayAdapter);
         m_FlingCard.setFlingListener(new SwipeFlingAdapterView.onFlingListener() {
             @Override
             public void removeFirstObjectInAdapter() {
                 // this is the simplest way to delete an object from the Adapter (/AdapterView)
                 Log.d("LIST", "removed object!");
-                al.remove(0);
-                arrayAdapter.notifyDataSetChanged();
+
+                //m_ArrayAdapter.notifyDataSetChanged();
             }
 
             @Override
@@ -53,19 +58,42 @@ public class StepActivity extends RoboActionBarActivity
                 //Do something on the left!
                 //You also have access to the original object.
                 //If you want to use it just cast it (String) dataObject
-                Toast.makeText(StepActivity.this, "Left!", Toast.LENGTH_SHORT).show();
+                if (m_StepList.size() > 0) {
+                    m_StepsDone.addLast(m_StepList.remove(0));
+                    if (m_StepList.size() == 0) {
+                        finish();
+                        Toast.makeText(StepActivity.this, "Bravo vous avez terminé la recette !", Toast.LENGTH_LONG).show();
+                    }
+                } else {
+
+                }
+
+                m_ArrayAdapter.notifyDataSetChanged();
+
+                Log.d(TAG, "[onLeftCardExit] steps done : " + m_StepsDone);
+                Log.d(TAG, "[onLeftCardExit] steps to do : " + m_StepList);
             }
 
             @Override
             public void onRightCardExit(Object dataObject) {
+                if (m_StepsDone.size() > 0) {
+                    m_StepList.addFirst(m_StepsDone.remove(0));
+                } else {
+                    Toast.makeText(StepActivity.this, "Vous êtes à la première étape!", Toast.LENGTH_LONG).show();
+                }
+
+
+                m_ArrayAdapter.notifyDataSetChanged();
                 Toast.makeText(StepActivity.this, "Right!", Toast.LENGTH_SHORT).show();
+                Log.d(TAG, "[onRightCardExit] steps done : " + m_StepsDone);
+                Log.d(TAG, "[onRightCardExit] steps to do : " + m_StepList);
             }
 
             @Override
             public void onAdapterAboutToEmpty(int itemsInAdapter) {
                 // Ask for more data here
-                al.add("XML ".concat(String.valueOf(itemsInAdapter)));
-                arrayAdapter.notifyDataSetChanged();
+                //m_StepList.add("XML ".concat(String.valueOf(itemsInAdapter)));
+                m_ArrayAdapter.notifyDataSetChanged();
                 Log.d("LIST", "notified");
                 itemsInAdapter++;
             }
@@ -84,6 +112,36 @@ public class StepActivity extends RoboActionBarActivity
                 makeToast(MyActivity.this, "Clicked!");
             }
         });*/
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        EventBus.getDefault().registerSticky(this);
+    }
+
+    public void onEvent(Recipe _recipe)
+    {
+        m_Recipe = _recipe;
+
+        m_StepList = new LinkedList<>();
+        for (Step step: m_Recipe.getStepList())
+        {
+            m_StepList.add(step.getDescription());
+        }
+
+        //choose your favorite adapter
+        m_ArrayAdapter = new ArrayAdapter<String>(this, R.layout.step_item, R.id.step_description, m_StepList);
+
+        //set the listener and the adapter
+        m_FlingCard.setAdapter(m_ArrayAdapter);
+        m_ArrayAdapter.notifyDataSetChanged();
+    }
+
+    @Override
+    public void onStop() {
+        EventBus.getDefault().unregister(this);
+        super.onStop();
     }
 
 
