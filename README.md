@@ -47,3 +47,18 @@ Emulateur utilisé : Genymotion
 - com.lorentzos.swipecards : Affichage de belles cartes pour les étapes des recettes
 
 - com.github.castorflex.smoothprogressbar : Barre de progression originale
+
+
+## Améliorations :
+
+- Supprimer des recettes
+- Rechercher des chefs
+- Ajouter des actions sur chaque bouton dans le détail d'une recette
+- Améliorer l'affichage des étapes d'une recette
+- Ajouter un Gist commun à tous les chefs pour que tout le monde puisse voir toutes les recettes publiques
+- Forker une recette
+- Liker une recette
+- Modifier une recette
+- Ajouter un commentaire à une recette
+- Se souvenir des identifiants de connexion d'un chef
+- ...
