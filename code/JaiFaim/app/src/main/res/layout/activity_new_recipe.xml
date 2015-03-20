@@ -63,47 +63,39 @@
         android:text="10min"
         android:hint="@string/new_recipe_cooking_time"/>
 
-    <RadioGroup
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        android:layout_marginBottom="8dp"
-        android:orientation="vertical">
-
-
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/new_recipe_difficulty"/>
 
-        <LinearLayout
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:gravity="center">
-
-            <RadioButton
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/new_recipe_difficulty_easy"/>
-            <RadioButton
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/new_recipe_difficulty_medium"/>
-            <RadioButton
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/new_recipe_difficulty_hard"/>
-        </LinearLayout>
-    </RadioGroup>
-
     <RadioGroup
+        android:id="@+id/new_recipe_radio_difficulty"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
         android:layout_marginBottom="8dp"
-        android:orientation="vertical">
+        android:gravity="center"
+        android:checkedButton="@+id/new_recipe_difficulty_easy"
+        android:orientation="horizontal">
 
+
+            <RadioButton
+                android:id="@id/new_recipe_difficulty_easy"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/new_recipe_difficulty_easy"/>
+            <RadioButton
+                android:id="@+id/new_recipe_difficulty_medium"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/new_recipe_difficulty_medium"/>
+            <RadioButton
+                android:id="@+id/new_recipe_difficulty_hard"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/new_recipe_difficulty_hard"/>
+
+    </RadioGroup>
 
         <TextView
             android:id="@+id/new_recipe_type"
@@ -112,27 +104,34 @@
             android:maxLines="1"
             android:text="@string/new_recipe_type"/>
 
-        <LinearLayout
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            android:layout_marginBottom="8dp"
-            android:orientation="horizontal"
-            android:gravity="center">
+    <RadioGroup
+        android:id="@+id/new_recipe_radio_type"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:layout_marginBottom="8dp"
+        android:gravity="center"
+        android:checkedButton="@+id/new_recipe_radio_type_starter"
+        android:orientation="horizontal">
 
             <RadioButton
+                android:id="@id/new_recipe_radio_type_starter"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/new_recipe_type_dessert"/>
+                android:text="@string/new_recipe_type_starter"/>
+
             <RadioButton
+                android:id="@+id/new_recipe_radio_type_dish"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/new_recipe_type_dish"/>
+
             <RadioButton
+                android:id="@+id/new_recipe_radio_type_desert"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/new_recipe_type_dessert"/>
-        </LinearLayout>
+
     </RadioGroup>
 
     <EditText

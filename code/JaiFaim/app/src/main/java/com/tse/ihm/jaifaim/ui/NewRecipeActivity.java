@@ -9,6 +9,7 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.RadioGroup;
 
 import com.tse.ihm.jaifaim.R;
 import com.tse.ihm.jaifaim.controller.GistController;
@@ -36,11 +37,16 @@ public class NewRecipeActivity extends RoboActionBarActivity
     @InjectView(R.id.new_recipe_title)          private EditText m_RecipeTitle;
     @InjectView(R.id.new_recipe_prep_time)      private EditText m_RecipePrepTime;
     @InjectView(R.id.new_recipe_cooking_time)   private EditText m_RecipeCookingTime;
+    @InjectView(R.id.new_recipe_radio_difficulty)   private RadioGroup m_RecipeTypeGroup;
+    @InjectView(R.id.new_recipe_radio_type)   private RadioGroup m_RecipeDifficultyGroup;
     @InjectView(R.id.new_recipe_ingredient)     private EditText m_RecipeIngredient;
     @InjectView(R.id.new_recipe_step)           private EditText m_RecipeStep;
 
     @Inject
     UserHelper m_UserHelper;
+
+    private Difficulty m_Difficulty;
+    private Type m_Type;
 
     private ArrayList<EditText> m_RecipeIngredients;
     private ArrayList<EditText> m_RecipeSteps;
@@ -53,6 +59,9 @@ public class NewRecipeActivity extends RoboActionBarActivity
 
         m_RecipeIngredients = new ArrayList<>();
         m_RecipeSteps = new ArrayList<>();
+
+        getDifficultyFromSelection();
+        getTypeFromSelection();
 
         Log.d(TAG, "[onCreate] user : " + m_UserHelper.getUser().getUsername());
     }
@@ -101,10 +110,8 @@ public class NewRecipeActivity extends RoboActionBarActivity
         recipe.setCreationDate(String.valueOf(new Date().getTime()));
         recipe.setPrepTime(m_RecipePrepTime.getText().toString());
         recipe.setCookingTime(m_RecipeCookingTime.getText().toString());
-        // TODO: changer
-        recipe.setDifficulty(Difficulty.HARD);
-        // TODO: changer
-        recipe.setType(Type.DISH);
+        recipe.setDifficulty(m_Difficulty);
+        recipe.setType(m_Type);
         // TODO : compléter
         Ingredient ing = new Ingredient();
         ing.setName(m_RecipeIngredient.getText().toString());
@@ -126,4 +133,49 @@ public class NewRecipeActivity extends RoboActionBarActivity
     }
 
 
+    /**
+     * Gets the selected difficulty from the radiogroup
+     * @return the difficulty
+     */
+    public void getDifficultyFromSelection()
+    {
+        m_RecipeDifficultyGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+
+            @Override
+            public void onCheckedChanged(RadioGroup group, int checkedId) {
+                // find which radio button is selected
+                if(checkedId == R.id.new_recipe_difficulty_easy) {
+                    m_Difficulty = Difficulty.EASY;
+                } else if(checkedId == R.id.new_recipe_difficulty_medium) {
+                    m_Difficulty = Difficulty.MEDIUM;
+                } else {
+                    m_Difficulty = Difficulty.HARD;
+                }
+            }
+
+        });
+
+    }
+
+    /**
+     * Gets the selected type from the radiogroup
+     * @return the type
+     */
+    public void getTypeFromSelection() {
+        m_RecipeTypeGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+
+            @Override
+            public void onCheckedChanged(RadioGroup group, int checkedId) {
+                // find which radio button is selected
+                if (checkedId == R.id.new_recipe_radio_type_starter) {
+                    m_Type = Type.STARTER;
+                } else if (checkedId == R.id.new_recipe_radio_type_dish) {
+                    m_Type = Type.DISH;
+                } else {
+                    m_Type = Type.DESSERT;
+                }
+            }
+
+        });
+    }
 }
