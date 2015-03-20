@@ -1,6 +1,16 @@
-Projet IHM pour Télécom Saint-Etienne
+Projet JaiFaim pour le cours IHM/DevMobile pour Télécom Saint-Etienne
+
+L'application Android doit permettre de créer des recettes de cuisine et de pouvoir visualiser celles 
+d'autres internautes. Le système derrière cette app est l'api de Github et plus particulièrement les gists qui ont permis de faire une petite base de données pour les recettes
+
+Installation :
+
+Il suffit de télécharger les sources puis de synchroniser gradle 
+
+Emulateur utilisé : Genymotion
 
 Dépendances :
+
 org.eclipse.egit.github.core : l'API de Github pour Java
 
 de.greenrobot:eventbus : Simplifier la communication entre Activité, Fragment, Service...
