@@ -57,4 +57,8 @@ dependencies {
     // Circular Progress bar
     // https://github.com/castorflex/SmoothProgressBar
     compile 'com.github.castorflex.smoothprogressbar:library-circular:1.1.0'
+
+    // Material tabs
+    // https://github.com/neokree/MaterialTabs
+    compile 'it.neokree:MaterialTabs:0.11'
 }
