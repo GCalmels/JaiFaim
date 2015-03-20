@@ -10,6 +10,12 @@
         app:showAsAction="ifRoom" />
 
     <item
+        android:id="@+id/action_show_profile"
+        android:title="@string/action_show_profile"
+        android:icon="@drawable/author"
+        app:showAsAction="ifRoom" />
+
+    <item
         android:id="@+id/action_login"
         android:title="@string/action_login"
         android:icon="@drawable/ic_action_login"

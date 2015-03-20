@@ -1,11 +1,12 @@
 <ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    xmlns:android="http://schemas.android.com/apk/res/android" >
+    android:layout_height="match_parent" >
 
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
-    android:layout_height="match_parent" android:paddingLeft="@dimen/activity_horizontal_margin"
+<RelativeLayout  android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
     android:paddingBottom="@dimen/activity_vertical_margin"
@@ -17,7 +18,9 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center"
-        android:textSize="50dp"/>
+        android:textSize="30dp"
+        android:maxLines="1"
+        android:hint="UserName"/>
 
 
     <TextView
@@ -32,7 +35,7 @@
     <ListView
         android:id="@+id/user_activity_my_recipe_list"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="300dp"
         android:layout_below="@id/user_activity_my_recipe_list_description"
         android:layout_marginTop="20dp">
     </ListView>
@@ -47,14 +50,14 @@
         android:textSize="20dp"
         android:text="Mes recettes favorites"/>
 
-    <ListView
+    <!--<ListView
         android:id="@+id/user_activity_favorite_recipe_list"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="300dp"
         android:layout_below="@id/user_activity_favorite_recipe_list_description"
         android:layout_marginTop="20dp">
     </ListView>
-
+-->
 
 </RelativeLayout>
 

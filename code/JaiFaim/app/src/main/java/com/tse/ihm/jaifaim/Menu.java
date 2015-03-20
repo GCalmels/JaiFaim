@@ -5,6 +5,7 @@ import android.view.MenuItem;
 import com.tse.ihm.jaifaim.ui.LoginActivity;
 import com.tse.ihm.jaifaim.ui.MainActivity;
 import com.tse.ihm.jaifaim.ui.NewRecipeActivity;
+import com.tse.ihm.jaifaim.ui.ViewUserActivity;
 
 /**
  * Created by Gabriel on 18/03/15.
@@ -23,6 +24,9 @@ public class Menu {
             // Demande de nouvelle recette
             case R.id.action_new_recipe:
                 return NewRecipeActivity.class;
+
+            case R.id.action_show_profile:
+                return ViewUserActivity.class;
 
             default:
                 return null;

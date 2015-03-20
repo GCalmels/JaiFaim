@@ -21,7 +21,7 @@ public class ViewUserActivity extends RoboActionBarActivity {
 
     @InjectView (R.id.user_activity_username) private TextView m_UserName;
     @InjectView (R.id.user_activity_my_recipe_list) private ListView m_RecipeList;
-    @InjectView (R.id.user_activity_favorite_recipe_list) private ListView m_FavoriteRecipeList;
+    //@InjectView (R.id.user_activity_favorite_recipe_list) private ListView m_FavoriteRecipeList;
 
     @Inject
     UserHelper m_UserHelper;
@@ -36,15 +36,20 @@ public class ViewUserActivity extends RoboActionBarActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_view_user);
 
+        m_GistController = new GistController();
+        m_UserHelper.getUser().setMyRecipes(m_GistController.getRecipeOfUser(m_UserHelper.getUser()));
+
+        m_UserName.setText(m_UserHelper.getUser().getUsername());
+
         // Create the adapter to convert the array to views
-        m_RecipeAdapter = new RecipeAdapter(this, m_MainGist.getRecipeList());
+        m_RecipeAdapter = new RecipeAdapter(this, m_UserHelper.getUser().getMyRecipes());
         // Attach the adapter to a ListView
         m_RecipeList.setAdapter(m_RecipeAdapter);
 
         // Create the adapter to convert the array to views
-        m_FavoriteRecipeAdapter = new RecipeAdapter(this, m_MainGist.getRecipeList());
+        m_FavoriteRecipeAdapter = new RecipeAdapter(this, m_UserHelper.getUser().getMyRecipes());
         // Attach the adapter to a ListView
-        m_FavoriteRecipeList.setAdapter(m_FavoriteRecipeAdapter);
+        //m_FavoriteRecipeList.setAdapter(m_FavoriteRecipeAdapter);
     }
 
 

@@ -7,6 +7,7 @@
     <string name="action_login">Se connecter</string>
     <string name="action_new_recipe">Nouvelle recette</string>
     <string name="action_login_cancel">Annuler</string>
+    <string name="action_show_profile">Profile</string>
 
     <!-- Login Activity -->
     <string name="title_activity_login">Login</string>

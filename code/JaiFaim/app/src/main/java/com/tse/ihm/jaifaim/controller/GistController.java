@@ -262,13 +262,13 @@ public class GistController {
         addNewRecipe(_recipe);
 
         // Update main Gist
-        updateMainGist();
+        updateMainGist(_user);
     }
 
-    public void updateMainGist() throws IOException
+    public void updateMainGist(HungryUser _user) throws IOException
     {
         GistService service = new GistService();
-        service.getClient().setOAuth2Token("a466ad6961d1ecf87ced4d9d8fd9860c41193d19");
+        service.getClient().setCredentials(_user.getUsername(), _user.getPAssword());
 
         Log.d(TAG, "[getGistFileOfGist] + " + ID_MAIN_GIST);
         Gist gist = service.getGist(ID_MAIN_GIST);

@@ -20,7 +20,6 @@ public class MainGist
     private String m_Organisation;
 
     @SerializedName("recipeList")
-
     private ArrayList<Recipe> m_RecipeList;
 
     public MainGist()
