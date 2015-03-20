@@ -4,9 +4,7 @@ import android.os.AsyncTask;
 import android.util.Log;
 
 import com.google.gson.Gson;
-import com.google.inject.Inject;
 import com.tse.ihm.jaifaim.common.JSONnodes;
-import com.tse.ihm.jaifaim.helper.UserHelper;
 import com.tse.ihm.jaifaim.message.NewGistTaskMessage;
 import com.tse.ihm.jaifaim.model.Difficulty;
 import com.tse.ihm.jaifaim.model.HungryUser;
@@ -29,8 +27,6 @@ import java.util.ArrayList;
 import java.util.Collections;
 
 import de.greenrobot.event.EventBus;
-import roboguice.RoboGuice;
-import roboguice.activity.RoboActivity;
 
 /**
  * Created by Gabriel on 14/03/15.
@@ -39,7 +35,7 @@ public class GistController {
     public static final String TAG = GistController.class.getName();
 
     // ID du gist référence pour toutes les recettes
-    private final static String ID_MAIN_GIST = "58d7dde389d53b4cef9c";
+    private final static String ID_MAIN_GIST = "ab4eb9d1ebf8c3a64790";
 
     private static MainGist m_MainGist;
     private MainGistTask m_MainGistTask;
