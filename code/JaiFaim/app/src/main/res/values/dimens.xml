@@ -4,4 +4,7 @@
     <dimen name="activity_vertical_margin">0dp</dimen>
 
     <dimen name="activity_view_recipe_icon">64dp</dimen>
+
+    <dimen name="activity_view_recipe_horizontal_margin">8dp</dimen>
+    <dimen name="activity_view_recipe_vertical_margin">8dp</dimen>
 </resources>

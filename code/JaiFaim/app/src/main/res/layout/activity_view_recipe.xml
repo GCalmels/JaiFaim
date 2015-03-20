@@ -3,247 +3,260 @@
     xmlns:tools="http://schemas.android.com/tools"
     tools:context="com.tse.ihm.jaifaim.ui.ViewRecipeActivity"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:fillViewport="true">
+    android:layout_height="match_parent">
 
-<RelativeLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent">
-
-    <TextView
-        android:id="@+id/view_recipe_title"
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:textSize="32sp"
-        android:gravity="center" />
+        android:layout_height="wrap_content">
 
-    <LinearLayout
-        android:id="@+id/view_recipe_container_button"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:layout_below="@id/view_recipe_title"
-        android:gravity="center">
 
-    <ImageButton
-        android:id="@+id/view_recipe_button_like"
-        android:layout_width="@dimen/activity_view_recipe_icon"
-        android:layout_height="@dimen/activity_view_recipe_icon"
-        android:layout_alignParentLeft="true"
-        android:scaleType="fitCenter"
-        android:src="@drawable/like"/>
-
-    <ImageButton
-        android:id="@+id/view_recipe_button_plus"
-        android:layout_width="@dimen/activity_view_recipe_icon"
-        android:layout_height="@dimen/activity_view_recipe_icon"
-        android:layout_toRightOf="@id/view_recipe_button_like"
-        android:scaleType="fitCenter"
-        android:src="@drawable/plus"/>
-
-    <ImageButton
-        android:id="@+id/view_recipe_button_ingredient_list"
-        android:layout_width="@dimen/activity_view_recipe_icon"
-        android:layout_height="@dimen/activity_view_recipe_icon"
-        android:layout_toRightOf="@id/view_recipe_button_plus"
-        android:scaleType="fitCenter"
-        android:src="@drawable/ingredient_list"/>
-
-    <ImageButton
-        android:id="@+id/view_recipe_button_add_comment"
-        android:layout_width="@dimen/activity_view_recipe_icon"
-        android:layout_height="@dimen/activity_view_recipe_icon"
-        android:layout_toRightOf="@id/view_recipe_button_ingredient_list"
-        android:scaleType="fitCenter"
-        android:src="@drawable/add_comment"/>
-
-    <ImageButton
-        android:id="@+id/view_recipe_button_author"
-        android:layout_width="@dimen/activity_view_recipe_icon"
-        android:layout_height="@dimen/activity_view_recipe_icon"
-        android:layout_below="@id/view_recipe_title"
-        android:layout_toRightOf="@id/view_recipe_button_add_comment"
-        android:scaleType="fitCenter"
-        android:src="@drawable/author"/>
-
-    </LinearLayout>
-
-    <ImageView
-        android:id="@+id/view_recipe_image"
-        android:layout_width="200dp"
-        android:layout_height="220dp"
-        android:layout_alignParentLeft="true"
-        android:layout_below="@id/view_recipe_container_button"
-        android:scaleType="centerCrop"
-        android:src="@drawable/poulet"/>
-
-    <TextView
-        android:id="@+id/view_recipe_prep_time_description"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_toRightOf="@id/view_recipe_image"
-        android:layout_alignTop="@id/view_recipe_image"
-        android:textSize="18sp"
-        android:gravity="left"
-        android:text="Temps de prépration" />
-
-    <TextView
-        android:id="@+id/view_recipe_prep_time"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_toRightOf="@id/view_recipe_image"
-        android:gravity="right"
-        android:textStyle="bold"
-        android:layout_below="@id/view_recipe_prep_time_description" />
-
-    <TextView
-        android:id="@+id/view_recipe_cooking_time_description"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_toRightOf="@id/view_recipe_image"
-        android:layout_below="@id/view_recipe_prep_time"
-        android:textSize="18sp"
-        android:gravity="left"
-        android:text="Temps de cuisson" />
-
-    <TextView
-        android:id="@+id/view_recipe_cooking_time"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_toRightOf="@id/view_recipe_image"
-        android:layout_below="@id/view_recipe_cooking_time_description"
-        android:gravity="right"
-        android:textStyle="bold"/>
-
-    <TextView
-        android:id="@+id/view_recipe_difficulty_description"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_toRightOf="@id/view_recipe_image"
-        android:layout_below="@id/view_recipe_cooking_time"
-        android:gravity="left"
-        android:textSize="18sp"
-        android:text="Difficulté" />
-
-    <TextView
-        android:id="@+id/view_recipe_difficulty"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_toRightOf="@id/view_recipe_image"
-        android:layout_below="@id/view_recipe_difficulty_description"
-        android:gravity="right"
-        android:textStyle="bold" />
-
-    <TextView
-        android:id="@+id/view_recipe_type_description"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_toRightOf="@id/view_recipe_image"
-        android:layout_below="@id/view_recipe_difficulty"
-        android:gravity="left"
-        android:textSize="18sp"
-        android:text="Type" />
-
-    <TextView
-        android:id="@+id/view_recipe_type"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_toRightOf="@id/view_recipe_image"
-        android:layout_below="@id/view_recipe_type_description"
-        android:gravity="right"
-        android:textStyle="bold" />
-
-    <TextView
-        android:id="@+id/view_recipe_likes_description"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_toRightOf="@id/view_recipe_image"
-        android:layout_below="@id/view_recipe_type"
-        android:gravity="left"
-        android:textSize="18sp"
-        android:text="Likes" />
-
-    <TextView
-        android:id="@+id/view_recipe_likes"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_toRightOf="@id/view_recipe_image"
-        android:layout_below="@id/view_recipe_likes_description"
-        android:gravity="right"
-        android:textStyle="bold" />
-
-    <LinearLayout
-        android:id="@+id/view_recipe_container_number_people"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/view_recipe_image"
-        android:orientation="horizontal"
-        android:weightSum="2">
+        <ImageView
+            android:id="@+id/view_recipe_image"
+            android:layout_width="match_parent"
+            android:layout_height="220dp"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentTop="true"
+            android:scaleType="centerCrop"
+            android:src="@drawable/poulet"/>
 
         <TextView
-            android:id="@+id/view_recipe_number_people_description"
+            android:id="@+id/view_recipe_title"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
+            android:layout_alignTop="@+id/view_recipe_image"
+            android:layout_paddingTop="@dimen/activity_view_recipe_vertical_margin"
+            android:textSize="32sp"
+            android:textColor="@color/activity_view_recipe_title"
+            android:gravity="center"
+            android:contentDescription="@string/new_recipe_title"
+            android:text="@string/new_recipe_title"/>
+
+        <LinearLayout
+            android:id="@+id/view_recipe_container_button"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_alignBottom="@id/view_recipe_image"
+            android:gravity="center">
+
+            <ImageButton
+                android:id="@+id/view_recipe_button_like"
+                android:layout_width="@dimen/activity_view_recipe_icon"
+                android:layout_height="@dimen/activity_view_recipe_icon"
+                android:layout_alignParentLeft="true"
+                android:scaleType="fitCenter"
+                android:src="@drawable/like"/>
+
+            <ImageButton
+                android:id="@+id/view_recipe_button_plus"
+                android:layout_width="@dimen/activity_view_recipe_icon"
+                android:layout_height="@dimen/activity_view_recipe_icon"
+                android:layout_toRightOf="@id/view_recipe_button_like"
+                android:scaleType="fitCenter"
+                android:src="@drawable/plus"/>
+
+            <ImageButton
+                android:id="@+id/view_recipe_button_ingredient_list"
+                android:layout_width="@dimen/activity_view_recipe_icon"
+                android:layout_height="@dimen/activity_view_recipe_icon"
+                android:layout_toRightOf="@id/view_recipe_button_plus"
+                android:scaleType="fitCenter"
+                android:src="@drawable/ingredient_list"/>
+
+            <ImageButton
+                android:id="@+id/view_recipe_button_add_comment"
+                android:layout_width="@dimen/activity_view_recipe_icon"
+                android:layout_height="@dimen/activity_view_recipe_icon"
+                android:layout_toRightOf="@id/view_recipe_button_ingredient_list"
+                android:scaleType="fitCenter"
+                android:src="@drawable/add_comment"/>
+
+            <ImageButton
+                android:id="@+id/view_recipe_button_author"
+                android:layout_width="@dimen/activity_view_recipe_icon"
+                android:layout_height="@dimen/activity_view_recipe_icon"
+                android:layout_below="@id/view_recipe_title"
+                android:layout_toRightOf="@id/view_recipe_button_add_comment"
+                android:scaleType="fitCenter"
+                android:src="@drawable/author"/>
+
+        </LinearLayout>
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="@dimen/activity_view_recipe_horizontal_margin"
+            android:layout_marginRight="@dimen/activity_view_recipe_horizontal_margin"
+            android:layout_below="@id/view_recipe_image"
+            android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/view_recipe_prep_time_description"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/activity_view_recipe_vertical_margin"
+            android:layout_below="@id/view_recipe_image"
+            android:textSize="18sp"
+            android:gravity="left"
+            android:text="Temps de prépration" />
+
+        <TextView
+            android:id="@+id/view_recipe_prep_time"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_toRightOf="@id/view_recipe_prep_time_description"
+            android:layout_alignBottom="@+id/view_recipe_prep_time_description"
+            android:gravity="right"
+            android:textStyle="bold"
+            android:hint="min"/>
+
+        <TextView
+            android:id="@+id/view_recipe_cooking_time_description"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/view_recipe_prep_time_description"
+            android:textSize="18sp"
+            android:gravity="left"
+            android:text="Temps de cuisson" />
+
+        <TextView
+            android:id="@+id/view_recipe_cooking_time"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_toRightOf="@id/view_recipe_cooking_time_description"
+            android:layout_alignBottom="@+id/view_recipe_cooking_time_description"
+            android:gravity="right"
+            android:textStyle="bold"
+            android:hint="min"/>
+
+        <TextView
+            android:id="@+id/view_recipe_difficulty_description"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/view_recipe_cooking_time_description"
             android:gravity="left"
             android:textSize="18sp"
-            android:text="Nombre de personnes : " />
+            android:text="Difficulté" />
 
         <TextView
-            android:id="@+id/view_recipe_number_people"
+            android:id="@+id/view_recipe_difficulty"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:textStyle="bold" />
+            android:layout_toRightOf="@id/view_recipe_difficulty_description"
+            android:layout_alignBottom="@+id/view_recipe_difficulty_description"
+            android:gravity="right"
+            android:textStyle="bold"
+            android:hint="Facile"/>
 
-    </LinearLayout>
+        <TextView
+            android:id="@+id/view_recipe_type_description"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/view_recipe_difficulty_description"
+            android:gravity="left"
+            android:textSize="18sp"
+            android:text="Type" />
 
-    <TextView
-        android:id="@+id/view_recipe_ingredients_description"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_below="@id/view_recipe_container_number_people"
-        android:gravity="left"
-        android:textSize="18sp"
-        android:text="Ingrédients : "/>
+        <TextView
+            android:id="@+id/view_recipe_type"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_toRightOf="@id/view_recipe_type_description"
+            android:layout_alignBottom="@+id/view_recipe_type_description"
+            android:gravity="right"
+            android:textStyle="bold"
+            android:hint="Dessert"/>
 
-    <TextView
-        android:id="@+id/view_recipe_ingredients"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/view_recipe_ingredients_description"
-        android:gravity="left"
-        android:textStyle="bold"/>
+        <TextView
+            android:id="@+id/view_recipe_likes_description"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/view_recipe_type_description"
+            android:gravity="left"
+            android:textSize="18sp"
+            android:text="Likes" />
 
-    <TextView
-        android:id="@+id/view_recipe_steps_description"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/view_recipe_ingredients"
-        android:gravity="left"
-        android:textSize="18sp"
-        android:text="Nombre d'étapes : " />
+        <TextView
+            android:id="@+id/view_recipe_likes"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_toRightOf="@id/view_recipe_likes_description"
+            android:layout_alignBottom="@+id/view_recipe_likes_description"
+            android:gravity="right"
+            android:textStyle="bold"
+            android:hint="10"/>
 
-    <TextView
-        android:id="@+id/view_recipe_steps"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignTop="@id/view_recipe_steps_description"
-        android:layout_toRightOf="@+id/view_recipe_steps_description"
-        android:gravity="right"
-        android:textStyle="bold"/>
 
-    <Button
-        android:id="@+id/view_recipe_button_start"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/view_recipe_steps"
-        android:layout_alignParentBottom="true"
-        android:text="C'est parti"
-        android:onClick="showSteps"/>
+            <TextView
+                android:id="@+id/view_recipe_number_people_description"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/view_recipe_likes_description"
+                android:gravity="left"
+                android:textSize="18sp"
+                android:text="Nombre de personnes : " />
 
-</RelativeLayout>
+            <TextView
+                android:id="@+id/view_recipe_number_people"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_toRightOf="@id/view_recipe_number_people_description"
+                android:layout_alignBottom="@id/view_recipe_number_people_description"
+                android:gravity="right"
+                android:textStyle="bold"
+                android:hint="4" />
+
+
+
+        <TextView
+            android:id="@+id/view_recipe_ingredients_description"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_below="@id/view_recipe_number_people_description"
+            android:gravity="left"
+            android:textSize="18sp"
+            android:text="Ingrédients : "/>
+
+        <TextView
+            android:id="@+id/view_recipe_ingredients"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/view_recipe_ingredients_description"
+            android:gravity="left"
+            android:textStyle="bold"/>
+
+        <TextView
+            android:id="@+id/view_recipe_steps_description"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/view_recipe_ingredients"
+            android:gravity="left"
+            android:textSize="18sp"
+            android:text="Nombre d'étapes : " />
+
+        <TextView
+            android:id="@+id/view_recipe_steps"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignTop="@id/view_recipe_steps_description"
+            android:layout_toRightOf="@+id/view_recipe_steps_description"
+            android:gravity="right"
+            android:textStyle="bold"/>
+
+        <Button
+            android:id="@+id/view_recipe_button_start"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/view_recipe_steps"
+            android:layout_alignParentBottom="true"
+            android:text="C'est parti"
+            android:onClick="showSteps"/>
+
+        </LinearLayout>
+
+    </RelativeLayout>
 
 
 </ScrollView>
