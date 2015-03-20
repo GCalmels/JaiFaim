@@ -2,11 +2,14 @@ package com.tse.ihm.jaifaim.ui;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.Html;
+import android.text.method.LinkMovementMethod;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.tse.ihm.jaifaim.R;
@@ -28,6 +31,7 @@ public class LoginActivity extends RoboActionBarActivity
 
     @InjectView(R.id.edittext_username) private EditText m_EditTextUsername;
     @InjectView(R.id.edittext_password) private EditText m_EditTextPassw0rd;
+    @InjectView(R.id.login_activity_sign_up) private TextView m_SignupTextView;
     @InjectView(R.id.login_activity_progress_bar) private CircularProgressBar m_ProgressBar;
 
 
@@ -50,9 +54,18 @@ public class LoginActivity extends RoboActionBarActivity
 
     }
 
+
     @Override
     public void onStart() {
         super.onStart();
+        // Link to sign up
+
+        String linkText = "Vous n'avez pas de compte? Quel honte!" +
+                "Par <a href='https://github.com/join'>ici</a> pour en créer un!";
+        m_SignupTextView.setText(Html.fromHtml(linkText));
+        m_SignupTextView.setMovementMethod(LinkMovementMethod.getInstance());
+
+        // Event
         EventBus.getDefault().register(this);
     }
 
