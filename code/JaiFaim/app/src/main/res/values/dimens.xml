@@ -7,4 +7,7 @@
 
     <dimen name="activity_view_recipe_horizontal_margin">8dp</dimen>
     <dimen name="activity_view_recipe_vertical_margin">8dp</dimen>
+
+    <dimen name="activity_login_horizontal_margin">10dp</dimen>
+    <dimen name="activity_login_vertical_margin">10dp</dimen>
 </resources>

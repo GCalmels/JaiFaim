@@ -11,7 +11,7 @@
 
     <!-- Login Activity -->
     <string name="title_activity_login">Login</string>
-    <string name="login_activity_title">Connectez-vous</string>
+    <string name="login_activity_title">Indentifiez-vous</string>
     <string name="login_activity_button">Se connecter</string>
     <string name="login_activity_hint_password">Mot de passe</string>
     <string name="login_activity_hint_username">Adresse mail</string>

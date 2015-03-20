@@ -64,8 +64,8 @@ public class LoginActivity extends RoboActionBarActivity
         super.onStart();
         // Link to sign up
 
-        String linkText = "Vous n'avez pas de compte? Quel honte!" +
-                "Par <a href='https://github.com/join'>ici</a> pour en créer un!";
+        String linkText = "<p>Vous n'avez pas de compte GitHub? Quel honte! </p>" +
+                "<p>Par <a href='https://github.com/join'>ici</a> pour en créer un!</p>";
         m_SignupTextView.setText(Html.fromHtml(linkText));
         m_SignupTextView.setMovementMethod(LinkMovementMethod.getInstance());
 
