@@ -1,7 +1,6 @@
 package com.tse.ihm.jaifaim.common;
 
 /**
- * Description : Différents type de plats : entrée, dessert, ...
  * Created by Greggy on 18/03/15.
  */
 public enum JSONnodes {

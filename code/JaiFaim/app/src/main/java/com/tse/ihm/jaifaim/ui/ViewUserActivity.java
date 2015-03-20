@@ -1,11 +1,9 @@
 package com.tse.ihm.jaifaim.ui;
 
-import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.ListView;
-import android.widget.TextView;
 
 import com.google.inject.Inject;
 import com.tse.ihm.jaifaim.R;
@@ -19,7 +17,6 @@ import roboguice.inject.InjectView;
 
 public class ViewUserActivity extends RoboActionBarActivity {
 
-    @InjectView (R.id.user_activity_username) private TextView m_UserName;
     @InjectView (R.id.user_activity_my_recipe_list) private ListView m_RecipeList;
     //@InjectView (R.id.user_activity_favorite_recipe_list) private ListView m_FavoriteRecipeList;
 
@@ -39,7 +36,8 @@ public class ViewUserActivity extends RoboActionBarActivity {
         m_GistController = new GistController();
         m_UserHelper.getUser().setMyRecipes(m_GistController.getRecipeOfUser(m_UserHelper.getUser()));
 
-        m_UserName.setText(m_UserHelper.getUser().getUsername());
+        // Ajout du titre de l'activité
+        setTitle(m_UserHelper.getUser().getUsername());
 
         // Create the adapter to convert the array to views
         m_RecipeAdapter = new RecipeAdapter(this, m_UserHelper.getUser().getMyRecipes());
