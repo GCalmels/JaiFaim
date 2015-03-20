@@ -21,7 +21,6 @@
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:textSize="22dp"
-        android:text="driftse@gmail.com"
         android:hint="@string/login_activity_hint_username"/>
 
     <EditText
@@ -29,7 +28,6 @@
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:textSize="22dp"
-        android:text="jfIsTheBest14"
         android:password="true"
         android:hint="@string/login_activity_hint_password"/>
 
