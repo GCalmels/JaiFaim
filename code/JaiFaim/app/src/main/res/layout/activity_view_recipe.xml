@@ -24,7 +24,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_alignTop="@+id/view_recipe_image"
-            android:layout_paddingTop="@dimen/activity_view_recipe_vertical_margin"
+            android:paddingTop="@dimen/activity_view_recipe_vertical_margin"
             android:textSize="32sp"
             android:textColor="@color/activity_view_recipe_title"
             android:gravity="center"
@@ -43,7 +43,6 @@
                 android:id="@+id/view_recipe_button_like"
                 android:layout_width="@dimen/activity_view_recipe_icon"
                 android:layout_height="@dimen/activity_view_recipe_icon"
-                android:layout_alignParentLeft="true"
                 android:scaleType="fitCenter"
                 android:src="@drawable/like"/>
 
@@ -225,7 +224,8 @@
             android:layout_height="wrap_content"
             android:layout_below="@id/view_recipe_ingredients_description"
             android:gravity="left"
-            android:textStyle="bold"/>
+            android:textStyle="bold"
+            android:hint=" - Ingrédient 1"/>
 
         <TextView
             android:id="@+id/view_recipe_steps_description"
