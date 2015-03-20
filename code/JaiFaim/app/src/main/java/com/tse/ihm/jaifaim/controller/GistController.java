@@ -4,9 +4,12 @@ import android.os.AsyncTask;
 import android.util.Log;
 
 import com.google.gson.Gson;
+import com.google.inject.Inject;
 import com.tse.ihm.jaifaim.common.JSONnodes;
+import com.tse.ihm.jaifaim.helper.UserHelper;
 import com.tse.ihm.jaifaim.message.NewGistTaskMessage;
 import com.tse.ihm.jaifaim.model.Difficulty;
+import com.tse.ihm.jaifaim.model.HungryUser;
 import com.tse.ihm.jaifaim.model.Ingredient;
 import com.tse.ihm.jaifaim.model.MainGist;
 import com.tse.ihm.jaifaim.model.Recipe;
@@ -26,6 +29,8 @@ import java.util.ArrayList;
 import java.util.Collections;
 
 import de.greenrobot.event.EventBus;
+import roboguice.RoboGuice;
+import roboguice.activity.RoboActivity;
 
 /**
  * Created by Gabriel on 14/03/15.
@@ -46,6 +51,8 @@ public class GistController {
             m_MainGist = new MainGist();
         m_MainGistTask = new MainGistTask(this);
         m_NewGistTask = new NewGistTask(this);
+
+//        RoboGuice.getInjector(this).injectMembers(this);
     }
 
     public MainGist getMainGist()
@@ -61,9 +68,10 @@ public class GistController {
         m_MainGistTask.execute();
     }
 
-    public void createNewRecipeInBackground(Recipe _recipe) {
+    public void createNewRecipeInBackground(HungryUser _user, Recipe _recipe) {
         // TODO: Voir s'il ne faut pas passer en paramètres l'id de l'auteur des recettes?
         m_NewGistTask.setRecipe(_recipe);
+        m_NewGistTask.setUser(_user);
         m_NewGistTask.execute();
     }
 
@@ -222,7 +230,7 @@ public class GistController {
         return step;
     }
 
-    public void createNewRecipe(Recipe _recipe) throws IOException
+    public void createNewRecipe(HungryUser _user, Recipe _recipe) throws IOException
     {
         GistFile file = new GistFile();
 
@@ -234,8 +242,9 @@ public class GistController {
         gist.setDescription(_recipe.getTitle());
         gist.setFiles(Collections.singletonMap(JSONnodes.recipeFile.toString(), file));
         GistService service = new GistService();
-        //TODO : Changer par les identifiants de l'utilisateur
-        service.getClient().setCredentials("driftse@gmail.com", "Skad9pEj8durj7yoow4jaL6Con4U");
+
+
+        service.getClient().setCredentials(_user.getUsername(), _user.getPAssword());
         gist = service.createGist(gist); //returns the created gist
 
         _recipe.setId(gist.getId());
@@ -310,6 +319,7 @@ public class GistController {
 
         private GistController m_GistController;
         private Recipe m_Recipe;
+        private HungryUser m_User;
 
         public NewGistTask(GistController controller)
         {
@@ -320,6 +330,8 @@ public class GistController {
         {
             m_Recipe = recipe;
         }
+
+        public void setUser(HungryUser _user) { m_User = _user;}
 
         public NewGistTask(Recipe _recipe)
         {
@@ -336,7 +348,7 @@ public class GistController {
             Log.d(TAG, "[doInBackground] creating recipe");
             try
             {
-                m_GistController.createNewRecipe(m_Recipe);
+                m_GistController.createNewRecipe(m_User, m_Recipe);
             } catch (IOException e)
             {
                 e.printStackTrace();

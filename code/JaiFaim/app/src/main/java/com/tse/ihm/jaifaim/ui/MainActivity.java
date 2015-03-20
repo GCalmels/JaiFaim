@@ -13,10 +13,13 @@ import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ListView;
 import android.widget.SearchView;
+import android.widget.Toast;
 
+import com.google.inject.Inject;
 import com.tse.ihm.jaifaim.R;
 import com.tse.ihm.jaifaim.adapter.RecipeAdapter;
 import com.tse.ihm.jaifaim.controller.GistController;
+import com.tse.ihm.jaifaim.helper.UserHelper;
 import com.tse.ihm.jaifaim.message.LoginActivityMessage;
 import com.tse.ihm.jaifaim.message.NewGistTaskMessage;
 import com.tse.ihm.jaifaim.model.HungryUser;
@@ -30,11 +33,13 @@ import roboguice.inject.InjectView;
 
 public class MainActivity extends RoboActionBarActivity implements OnRefreshListener
 {
-
     private static final String TAG = MainActivity.class.getName();
 
     @InjectView(R.id.swipe_container)      private SwipeRefreshLayout m_SwipeContainer;
     @InjectView(R.id.recipe_list)          private ListView m_ListView;
+
+    @Inject
+    UserHelper m_UserHelper;
 
     private GistController m_GistController;
     private MainGist m_MainGist;
@@ -103,6 +108,11 @@ public class MainActivity extends RoboActionBarActivity implements OnRefreshList
         showProgress();
         GistController controller = new GistController();
         controller.getAllRecipesInBackground();
+
+        if (m_UserHelper.getUser() != null)
+        {
+            Toast.makeText(MainActivity.this, "Bonjour : " + m_UserHelper.getUser().getUsername(), Toast.LENGTH_LONG);
+        }
     }
 
     @Override
@@ -162,8 +172,8 @@ public class MainActivity extends RoboActionBarActivity implements OnRefreshList
     {
         if (_message.getUser().getGitHubUser() != null)
         {
-            m_User = _message.getUser();
-            getActionBar().setTitle(m_User.getUsername());
+            //m_User = _message.getUser();
+            //Toast.makeText(MainActivity.this, "Bonjour : " + m_User.getUsername(), Toast.LENGTH_LONG);
         }
     }
 

@@ -12,8 +12,10 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.inject.Inject;
 import com.tse.ihm.jaifaim.R;
 import com.tse.ihm.jaifaim.controller.HungryUserController;
+import com.tse.ihm.jaifaim.helper.UserHelper;
 import com.tse.ihm.jaifaim.message.LoginActivityMessage;
 import com.tse.ihm.jaifaim.message.LoginTaskMessage;
 import com.tse.ihm.jaifaim.model.HungryUser;
@@ -34,6 +36,8 @@ public class LoginActivity extends RoboActionBarActivity
     @InjectView(R.id.login_activity_sign_up) private TextView m_SignupTextView;
     @InjectView(R.id.login_activity_progress_bar) private CircularProgressBar m_ProgressBar;
 
+    @Inject
+    UserHelper m_UserHelper;
 
 
     private HungryUserController m_UserController;
@@ -76,6 +80,7 @@ public class LoginActivity extends RoboActionBarActivity
 
         if (message.getConnectionSuccessfull())
         {
+            m_UserHelper.setUser(message.getUser());
             EventBus.getDefault().postSticky(message.getUser());
             Intent i = new Intent(LoginActivity.this, MainActivity.class);
             startActivity(i);

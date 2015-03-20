@@ -12,6 +12,7 @@ import android.widget.LinearLayout;
 
 import com.tse.ihm.jaifaim.R;
 import com.tse.ihm.jaifaim.controller.GistController;
+import com.tse.ihm.jaifaim.helper.UserHelper;
 import com.tse.ihm.jaifaim.model.Difficulty;
 import com.tse.ihm.jaifaim.model.Ingredient;
 import com.tse.ihm.jaifaim.model.Recipe;
@@ -20,6 +21,8 @@ import com.tse.ihm.jaifaim.model.Type;
 
 import java.util.ArrayList;
 import java.util.Date;
+
+import javax.inject.Inject;
 
 import roboguice.activity.RoboActionBarActivity;
 import roboguice.inject.InjectView;
@@ -36,6 +39,9 @@ public class NewRecipeActivity extends RoboActionBarActivity
     @InjectView(R.id.new_recipe_ingredient)     private EditText m_RecipeIngredient;
     @InjectView(R.id.new_recipe_step)           private EditText m_RecipeStep;
 
+    @Inject
+    UserHelper m_UserHelper;
+
     private ArrayList<EditText> m_RecipeIngredients;
     private ArrayList<EditText> m_RecipeSteps;
 
@@ -48,6 +54,7 @@ public class NewRecipeActivity extends RoboActionBarActivity
         m_RecipeIngredients = new ArrayList<>();
         m_RecipeSteps = new ArrayList<>();
 
+        Log.d(TAG, "[onCreate] user : " + m_UserHelper.getUser().getUsername());
     }
 
 
@@ -90,8 +97,7 @@ public class NewRecipeActivity extends RoboActionBarActivity
         recipe.setImageUrl("http://www.ot-cayeuxsurmer.fr/sites/otcsm/files/news/2014/11/08/1807-826.jpg");
 
         recipe.setTitle(m_RecipeTitle.getText().toString());
-        // TODO : changer avec le vrai auteur connecté
-        recipe.setAuthor("Greggy");
+        recipe.setAuthor(m_UserHelper.getUser().getUsername());
         recipe.setCreationDate(String.valueOf(new Date().getTime()));
         recipe.setPrepTime(m_RecipePrepTime.getText().toString());
         recipe.setCookingTime(m_RecipeCookingTime.getText().toString());
@@ -113,7 +119,7 @@ public class NewRecipeActivity extends RoboActionBarActivity
         recipe.setStepList(stepList);
 
 
-        gistController.createNewRecipeInBackground(recipe);
+        gistController.createNewRecipeInBackground(m_UserHelper.getUser(), recipe);
 
         Intent intent = new Intent(this, MainActivity.class);
         startActivity(intent);

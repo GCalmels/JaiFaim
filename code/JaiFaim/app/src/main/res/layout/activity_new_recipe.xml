@@ -40,6 +40,7 @@
         android:layout_marginTop="8dp"
         android:layout_marginBottom="8dp"
         android:maxLines="1"
+        android:text="Titre"
         android:hint="@string/new_recipe_title"/>
 
     <EditText
@@ -49,6 +50,7 @@
         android:layout_marginTop="8dp"
         android:layout_marginBottom="8dp"
         android:maxLines="1"
+        android:text="25min"
         android:hint="@string/new_recipe_prep_time"/>
 
     <EditText
@@ -58,6 +60,7 @@
         android:layout_marginTop="8dp"
         android:layout_marginBottom="8dp"
         android:maxLines="1"
+        android:text="10min"
         android:hint="@string/new_recipe_cooking_time"/>
 
     <RadioGroup
@@ -139,6 +142,7 @@
         android:layout_marginTop="8dp"
         android:layout_marginBottom="8dp"
         android:maxLines="1"
+        android:text="Pasta"
         android:hint="Ingrédient 1" />
 
     <EditText
@@ -148,6 +152,7 @@
         android:layout_marginTop="8dp"
         android:layout_marginBottom="8dp"
         android:maxLines="1"
+        android:text="Mettre les pates dans l'eau puis remuer"
         android:hint="Etape 1" />
 
 
