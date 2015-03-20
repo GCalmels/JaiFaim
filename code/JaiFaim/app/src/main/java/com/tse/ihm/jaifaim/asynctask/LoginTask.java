@@ -1,17 +1,11 @@
 package com.tse.ihm.jaifaim.asynctask;
 
-import android.os.AsyncTask;
-import android.util.Log;
-
-import com.tse.ihm.jaifaim.controller.HungryUserController;
-
-import de.greenrobot.event.EventBus;
-
 /**
  * Created by Gabriel on 14/03/15.
  */
-public class LoginTask extends AsyncTask<Void, Void, Void>{
-
+public class LoginTask
+{
+/*
     private String m_Username;
     private String m_Passw0rd;
     private boolean m_isSuccessfull;
@@ -38,5 +32,7 @@ public class LoginTask extends AsyncTask<Void, Void, Void>{
         // Envoi de la réussite ou non à l'activité
         EventBus.getDefault().post(m_isSuccessfull);
     }
+
+    */
 
 }

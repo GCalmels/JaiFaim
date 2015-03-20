@@ -17,7 +17,9 @@ import android.widget.SearchView;
 import com.tse.ihm.jaifaim.R;
 import com.tse.ihm.jaifaim.adapter.RecipeAdapter;
 import com.tse.ihm.jaifaim.controller.GistController;
+import com.tse.ihm.jaifaim.message.LoginActivityMessage;
 import com.tse.ihm.jaifaim.message.NewGistTaskMessage;
+import com.tse.ihm.jaifaim.model.HungryUser;
 import com.tse.ihm.jaifaim.model.MainGist;
 import com.tse.ihm.jaifaim.model.Recipe;
 
@@ -36,6 +38,7 @@ public class MainActivity extends RoboActionBarActivity implements OnRefreshList
 
     private GistController m_GistController;
     private MainGist m_MainGist;
+    private HungryUser m_User;
     private RecipeAdapter m_RecipeAdapter;
 
     public MainActivity()
@@ -49,7 +52,6 @@ public class MainActivity extends RoboActionBarActivity implements OnRefreshList
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        EventBus.getDefault().register(this);
 
         // Fonction de recherche
         SearchView search = (SearchView) findViewById(R.id.activity_main_search);
@@ -104,6 +106,18 @@ public class MainActivity extends RoboActionBarActivity implements OnRefreshList
     }
 
     @Override
+    public void onStart() {
+        super.onStart();
+        EventBus.getDefault().registerSticky(this);
+    }
+
+    @Override
+    public void onStop() {
+        EventBus.getDefault().unregister(this);
+        super.onStop();
+    }
+
+    @Override
     protected void onNewIntent(Intent intent)
     {
         super.onNewIntent(intent);
@@ -142,6 +156,15 @@ public class MainActivity extends RoboActionBarActivity implements OnRefreshList
 
         Log.d(TAG, "[onEvent] recette 0 : " + _mainGist.getRecipeList().get(0));
         refreshListView();
+    }
+
+    public void onEvent(LoginActivityMessage _message)
+    {
+        if (_message.getUser().getGitHubUser() != null)
+        {
+            m_User = _message.getUser();
+            getActionBar().setTitle(m_User.getUsername());
+        }
     }
 
     public void onEvent(NewGistTaskMessage message)
