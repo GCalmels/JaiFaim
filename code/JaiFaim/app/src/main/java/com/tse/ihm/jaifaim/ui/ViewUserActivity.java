@@ -24,6 +24,7 @@ public class ViewUserActivity extends RoboActionBarActivity implements MaterialT
 {
     private static final String TAG = ViewUserActivity.class.getName();
 
+
     @InjectView (R.id.tabHost) private MaterialTabHost m_TabHost;
     @InjectView (R.id.user_activity_username) private TextView m_UserName;
     @InjectView (R.id.user_activity_my_recipe_list_description) private TextView m_ListDescription;
@@ -50,7 +51,8 @@ public class ViewUserActivity extends RoboActionBarActivity implements MaterialT
         m_GistController = new GistController();
         m_UserHelper.getUser().setMyRecipes(m_GistController.getRecipeOfUser(m_UserHelper.getUser()));
 
-        m_UserName.setText(m_UserHelper.getUser().getUsername());
+        // Ajout du titre de l'activité
+        setTitle(m_UserHelper.getUser().getUsername());
 
         // Create the adapter to convert the array to views
         m_RecipeAdapter = new RecipeAdapter(this, m_UserHelper.getUser().getMyRecipes());

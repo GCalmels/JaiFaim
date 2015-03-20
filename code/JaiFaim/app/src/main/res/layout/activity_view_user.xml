@@ -40,7 +40,6 @@
         android:id="@+id/user_activity_my_recipe_list_description"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/user_activity_username"
         android:gravity="center"
         android:textSize="20sp"
         android:text="Mes recettes"/>
