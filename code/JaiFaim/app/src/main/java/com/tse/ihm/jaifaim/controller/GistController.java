@@ -241,6 +241,32 @@ public class GistController {
         return list;
     }
 
+    public void forkRecipe(HungryUser _user, Recipe _recipe) throws IOException {
+        // Changement de propiétaire
+        _recipe.setAuthor(_user.getUsername());
+
+        GistFile file = new GistFile();
+
+        Gson gson = new Gson();
+        file.setContent(gson.toJson(_recipe));
+
+        // Create new Gist
+        Gist gist = new Gist();
+        gist.setDescription(_recipe.getTitle());
+        gist.setFiles(Collections.singletonMap(JSONnodes.recipeFile.toString(), file));
+        GistService service = new GistService();
+
+
+        service.getClient().setCredentials(_user.getUsername(), _user.getPAssword());
+        gist = service.createGist(gist); //returns the created gist
+
+        _recipe.setId(gist.getId());
+        addNewRecipe(_recipe);
+
+        // Update main Gist
+        updateMainGist(_user);
+    }
+
     public void createNewRecipe(HungryUser _user, Recipe _recipe) throws IOException
     {
         GistFile file = new GistFile();

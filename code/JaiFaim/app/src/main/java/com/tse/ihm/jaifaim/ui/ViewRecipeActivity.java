@@ -73,7 +73,7 @@ public class ViewRecipeActivity extends RoboActionBarActivity
         m_Ingredients.setText("");
         for (Ingredient i : m_Recipe.getIngredientList())
         {
-            m_Ingredients.setText(m_Ingredients.getText() + "\n" + i.getName());
+            m_Ingredients.setText(m_Ingredients.getText() + "\n - " + i.getName());
         }
 
         m_Steps.setText(String.valueOf(m_Recipe.getStepList().size()));
